@@ -6,7 +6,7 @@ We have planned to do the `Meeting Agenda Builder` (with HTML + JavaScript) but 
 * `Activities` view
 * `Day` view (can be multiple at the same time)
 * `Days` view (where you save your days/meetings and where you also can load them again from the database)
-* `Add activity view
+* `Add` activity view
 
 ## Interaction on model data
 * Drag and drop, change titles etc.
