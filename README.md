@@ -1,8 +1,5 @@
 # DH2642-project
 
-## Idea 1: Meeting Agenda Builder
-test
-hej
-:)
+This is a project by Nina Olofsson, Li Wirström, Pontus Falk and Satu Cahaya Langit.
 
-Hello Nina
+The project idea can be found in the file IDEA.md.
