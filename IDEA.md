@@ -7,9 +7,9 @@ We will do a _Google Analytics Simplifier_ using HTML5 and JavaScript. We will u
 The problem is that not everyone knows how to use Google Analytics, and therefore only look at the reports which Google automatically creates for you. It is not easy or fun to follow the statistics real-time. 
 Our proposal is to create a web app which provides this functionality where a user can create a customized, nice looking view with exactly the data that is relevant for that person. It should also be possible to have other settings in the app. 
 For example:
-A user could choose to get desktop notifications when there are more than X users on the site
-When number of viewers per week is less than X
-Referal rate from a web site is less than X.
+ * A user could choose to get desktop notifications when there are more than X users on the site
+ * When number of viewers per week is less than X
+ * Referal rate from a web site is less than X.
 
 ##Some links with documentation
 
