@@ -1,5 +1,5 @@
 #Awesome Google Analytics Simplifier
-##Making Analytics work For You
+###Making Analytics work For You
 
 ##Project Idea
 
