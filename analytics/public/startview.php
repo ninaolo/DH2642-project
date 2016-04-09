@@ -22,8 +22,8 @@
         <link href="css/navbar.css" rel="stylesheet">
 
         <script>
-            var baseUrl = "http://localhost/analytics/public";
-            var apiUrl = "http://localhost/analytics/public/api";
+            var baseUrl = "http://localhost/DH2642-project/analytics/public";
+            var apiUrl = "http://localhost/DH2642-project/analytics/public/api";
         </script>
 
     </head>
@@ -120,6 +120,7 @@
 
     <!-- Controllers -->
     <script src="js/controllers/navController.js"></script>
+    <script src="js/controllers/userController.js"></script>
 
     <!-- Directives -->
 

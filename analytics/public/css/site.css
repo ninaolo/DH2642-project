@@ -8,13 +8,13 @@ html, body {
 }
 
 #main {overflow:auto;
-  padding-bottom: 180px;}  /* must be same height as the footer */
+  padding-bottom: 130px;}  /* must be same height as the footer */
 
 #footer {
   position: relative;
   background-color: #f5f5f5;
-  margin-top: -180px; /* negative value of footer height */
-  height: 180px;
+  margin-top: -130px; /* negative value of footer height */
+  height: 130px;
   clear:both;
   text-align: center;
   padding-top: 20px;
