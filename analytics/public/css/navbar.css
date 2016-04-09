@@ -1,0 +1,28 @@
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 1px 13px 0px #F4F4F4;
+  padding: 7px 10px 7px 10px;
+}
+
+.navbar-collapse {
+  padding: 3px 10px 0px 10px;
+}
+
+.dropdown-toggle:active, .open .dropdown-toggle {
+  background-color:#fff !important;
+  color:#000 !important;
+}
+
+#navbar a {
+    color: #323232;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}

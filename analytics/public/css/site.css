@@ -1,0 +1,137 @@
+
+html, body {
+  height: 100%; /* The html and body elements cannot have any padding or margin. */
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {overflow:auto;
+  padding-bottom: 180px;}  /* must be same height as the footer */
+
+#footer {
+  position: relative;
+  background-color: #f5f5f5;
+  margin-top: -180px; /* negative value of footer height */
+  height: 180px;
+  clear:both;
+  text-align: center;
+  padding-top: 20px;
+} 
+
+/* Opera Fix for sticky footer */
+body:before {
+  content:"";
+  height:100%;
+  float:left;
+  width:0;
+  margin-top:-32767px;/
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+    padding-top: 120px;
+}
+
+h1 {
+    font-family: "Quicksand", sans-serif;
+    color: #323232;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: "Quicksand", sans-serif;
+    color: #323232;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h4, a {
+    color: #323232;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.active, .error {
+  color: #DF9F39;
+}
+
+a:hover, #navbar a:hover {
+  color: #DF9F39;
+  text-decoration: none;
+}
+
+#dot {
+  color: #DF9F39;
+  font-size: 30px;
+}
+
+
+/*
+ * Buttons
+ */
+
+.btn {
+    padding: 14px 24px;
+    border-radius: 0px;
+    font-weight: 100;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #ffffff;
+    color: #DF9F39;
+    border: 0.5px solid #DF9F39;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #ffffff;
+    color: #323232;
+    border-color: #323232;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #007299;
+    box-shadow: none;
+}
+
+/*
+ * Main content
+ */
+
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.info {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+/* Absolute centering, could be useful */
+.absolute-center {
+  margin: auto;
+  height: 10px;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
