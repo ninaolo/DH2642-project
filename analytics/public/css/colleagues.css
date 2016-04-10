@@ -1,0 +1,52 @@
+
+.colleagues p {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.colleagues {
+    padding:75px 0;
+}
+
+.profile {
+    margin-top: 25px;
+}
+
+.profile h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    margin:10px 0 0 0;
+}
+
+.profile h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    margin-top: 5px;
+    text-transform: lowercase;
+}
+
+.profile .img-box {
+    opacity: 1;
+    display: block;
+    position: relative;
+}
+
+.profile .img-box:after {
+    content:"";
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.img-box:hover:after{
+    opacity: 1;
+}

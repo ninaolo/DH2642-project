@@ -16,7 +16,7 @@ analytics.controller("userController", function ($scope, $rootScope, userService
                     $rootScope.loggedIn = "true";
                     $rootScope.user = response;
                     userService.checkLogin();
-                    $window.location.href = "#/";
+                    $window.location.href = "#/profile/" + $rootScope.user.id;
                 })
                 .error(function (data, status, headers) {
                     alert(data);

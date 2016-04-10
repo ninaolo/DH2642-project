@@ -1,4 +1,4 @@
-analytics.controller('navController', function($scope, $http, $rootScope, userService) {
+analytics.controller('navController', function($scope, userService) {
 
     userService.checkLogin();
 

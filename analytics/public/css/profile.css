@@ -1,0 +1,11 @@
+
+.about-me, .meetings {
+    padding-bottom: 100px;
+    padding-top: 30px;
+    margin-top: 15px;
+    border-top: 0.5px solid #E5E5E5;
+}
+
+.info-text {
+    background-color: #F8F8F8;
+}

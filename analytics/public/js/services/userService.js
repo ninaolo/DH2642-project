@@ -45,6 +45,10 @@ analytics.factory('userService', function ($http, $rootScope) {
         return $http.get(apiUrl + '/users/' + id);
     };
 
+    userService.getUsers = function () {
+        return $http.get(apiUrl + '/users');
+    };
+
     userService.register = function (registerData) {
         return $http({
             headers: {

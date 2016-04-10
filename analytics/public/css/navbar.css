@@ -26,3 +26,17 @@
     letter-spacing: 2px;
     text-transform: uppercase;
 }
+
+#meeter-suitcase {
+    color: #DF9F39;
+    font-size: 23px;
+    text-transform: lowercase;
+}
+
+#meeter-home {
+    color: #323232;
+    font-size: 28px;
+    text-transform: lowercase;
+    letter-spacing: 0;
+    font-family: Quicksand, sans-serif;
+}
