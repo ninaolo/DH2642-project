@@ -18,10 +18,6 @@ class CreateActivitiesTable extends Migration
             $table->string('type');
             $table->dateTime('duration');
             $table->string('description');
-            $table->integer('agenda_id')->unsigned();
-            $table->foreign('agenda_id')
-                ->references('id')
-                ->on('a_agendas');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')

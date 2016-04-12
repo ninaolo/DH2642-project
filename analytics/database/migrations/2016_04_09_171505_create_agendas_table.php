@@ -14,11 +14,8 @@ class CreateAgendasTable extends Migration
     {
       Schema::create('a_agendas', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('activity_id')->unsigned();
-          $table->foreign('activity_id')
-              ->references('id')
-              ->on('a_activities')
-              ->onDelete('cascade');
+          $table->string('description');
+          $table->dateTime('date');
       });
 
     }
@@ -30,6 +27,6 @@ class CreateAgendasTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop("a_agendas");
     }
 }
