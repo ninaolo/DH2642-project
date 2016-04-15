@@ -16,12 +16,26 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('logout', 'LoginLogoutController@logout');
         Route::get('checklogin', 'LoginLogoutController@checkLogin');
 
-        // User resource API
+        // Users resource API
         Route::get('users', 'UsersController@index');
         Route::post('users', 'UsersController@store');
         Route::get('users/{id}', 'UsersController@show');
         Route::put('users/{id}', 'UsersController@update');
         Route::delete('users/{id}', 'UsersController@destroy');
+
+        // Agendas resource API
+        Route::get('agendas', 'AgendasController@index');
+        Route::post('agendas', 'AgendasController@store');
+        Route::get('agendas/{id}', 'AgendasController@show');
+        Route::put('agendas/{id}', 'AgendasController@update');
+        Route::delete('agendas/{id}', 'AgendasController@destroy');
+
+        // Activities resource API
+        Route::get('activities', 'ActivitiesController@index');
+        Route::post('activities', 'ActivitiesController@store');
+        Route::get('activities/{id}', 'ActivitiesController@show');
+        Route::put('activities/{id}', 'ActivitiesController@update');
+        Route::delete('activities/{id}', 'ActivitiesController@destroy');
 
     });
 

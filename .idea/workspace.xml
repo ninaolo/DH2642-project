@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7e807128-a85a-4e13-bfd0-1de0a6acba5f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analytics/app/Activity.php" afterPath="$PROJECT_DIR$/analytics/app/Activity.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analytics/app/Agenda.php" afterPath="$PROJECT_DIR$/analytics/app/Agenda.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analytics/app/Http/routes.php" afterPath="$PROJECT_DIR$/analytics/app/Http/routes.php" />
     </list>
     <ignored path="DH2642-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,6 +99,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -318,7 +322,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
