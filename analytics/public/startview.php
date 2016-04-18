@@ -23,8 +23,13 @@
         <link href="css/navbar.css" rel="stylesheet">
 
         <script>
-            var baseUrl = "http://localhost/DH2642-project/analytics/public";
-            var apiUrl = "http://localhost/DH2642-project/analytics/public/api";
+<<<<<<< HEAD
+            var baseUrl = "http://localhost:5555/DH2642-project/analytics/public";
+            var apiUrl = "http://localhost:5555/DH2642-project/analytics/public/api";
+=======
+            var baseUrl = "http://localhost:81/DH2642-project/analytics/public";
+            var apiUrl = "http://localhost:81/DH2642-project/analytics/public/api";
+>>>>>>> f751417ab79af298c95bc932fef91beb38430d13
         </script>
 
     </head>
@@ -97,7 +102,10 @@
                         <div class="col-md-4">
                             </br>
                             <h4>NEWSLETTER</h4>
-                            <p>Do you want our newsletter?</p>
+                            <p>Register your email and receive all the latest news and updates</p>
+                            <input type="email" id="news_email" name="email" ng-model="email" class="form-control"
+                            placeholder="Please enter email address" required>
+                            <input class="btn btn-primary" type="submit" value="Register_newsletter">
                         </div>
                     </div>
                 </div>
