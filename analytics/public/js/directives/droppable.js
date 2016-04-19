@@ -4,6 +4,7 @@ analytics.directive('droppable', function () {
             handle: '&'
         },
         link: function (scope, element) {
+
             element.on('dragover', function (e) {
                 e.preventDefault();
             });
@@ -20,16 +21,12 @@ analytics.directive('droppable', function () {
 
             element.on('drop', function (e) {
                 e.preventDefault();
-                var data = e.originalEvent.dataTransfer.getData("text");
-                e.target.appendChild(document.getElementById(data));
+                var activityId = e.originalEvent.dataTransfer.getData("text");
 
-                // Here we call the handleDrop() function in the controller.
-                scope.$apply(function (scope) {
-                    var fn = scope.handle();
-                    if ('undefined' !== typeof fn) {
-                        fn(item.id, binId);
-                    }
-                });
+                // Here we call the handleDrop() function in the controller. The apply() is necessary for updating.
+                scope.handle({id: activityId});
+                scope.$apply();
+
             });
         }
     };
