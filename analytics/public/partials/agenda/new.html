@@ -7,19 +7,17 @@
 
             <div class="col-md-6">
                 <a href="" ng-click="newActivity()"><h4><i class="fa fa-btn fa-plus"></i> New activity</h4></a>
-                <div id="activities">
-
-                    <div class="row" ng-repeat="activity in activities">
+                <div id="activities"  droppable handle="handleDrop()">
+                    <div class="row activity" ng-repeat="activity in activities" id="activity-{{$index}}" draggable>
                         <div class="col-md-3 minutes">
                             {{activity.duration}} min
                         </div>
                         <div class="col-md-9">
-                            <button draggable class="btn btn-warning" id="item{{activity}}" item="item">
+                            <button class="btn btn-warning">
                                 {{activity.name}}
                             </button>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -27,17 +25,15 @@
 
             <div class="col-md-6">
                 <h4>Agenda</h4>
-                <div id="agenda">
-                    <div class="bin" droppable drop="drop">
-                        <div class="row" ng-repeat="activity in agenda">
-                            <div class="col-md-3 minutes">
-                                {{date | date : 'HH:mm'}}
-                            </div>
-                            <div class="col-md-9">
-                                <button class="btn btn-warning" item="item">
-                                    {{activity.name}}
-                                </button>
-                            </div>
+                <div id="agenda" droppable handle="handleDrop()">
+                    <div class="row" ng-repeat="activity in agenda" draggable>
+                        <div class="col-md-3 minutes">
+                            {{date | date : 'HH:mm'}}
+                        </div>
+                        <div class="col-md-9">
+                            <button class="btn btn-warning" item="item">
+                                {{activity.name}}
+                            </button>
                         </div>
                     </div>
                 </div>

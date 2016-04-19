@@ -1,6 +1,7 @@
 analytics.controller('agendaController', function ($scope) {
 
-    $scope.drop = function () {
+    // This function is called from the droppable directive.
+    $scope.handleDrop = function() {
         console.log("drop");
     };
 
@@ -44,10 +45,6 @@ analytics.controller('agendaController', function ($scope) {
         ];
 
         $scope.agenda = [
-            {
-                "name": "activity 4",
-                "duration": 20
-            }
         ];
 
         $scope.setStartAndEndTime();

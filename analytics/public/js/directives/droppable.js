@@ -1,41 +1,36 @@
 analytics.directive('droppable', function () {
     return {
         scope: {
-            drop: '&',
-            bin: '='
+            handle: '&'
         },
         link: function (scope, element) {
-            var el = element[0];
-            el.addEventListener('dragover', function (e) {
-                e.dataTransfer.dropEffect = 'move';
-                if (e.preventDefault)
-                    e.preventDefault();
+            element.on('dragover', function (e) {
+                e.preventDefault();
+            });
+
+            element.on('dragenter', function (e) {
                 this.classList.add('over');
                 return false;
-            }, false);
-            el.addEventListener('dragenter', function (e) {
-                this.classList.add('over');
-                return false;
-            }, false);
-            el.addEventListener('dragleave', function (e) {
+            });
+
+            element.on('dragleave', function (e) {
                 this.classList.remove('over');
                 return false;
-            }, false);
-            el.addEventListener('drop', function (e) {
-                if (e.stopPropagation)
-                    e.stopPropagation();
-                this.classList.remove('over');
-                var binId = this.id;
-                var item = document.getElementById(e.dataTransfer.getData('Text'));
-                this.appendChild(item);
+            });
+
+            element.on('drop', function (e) {
+                e.preventDefault();
+                var data = e.originalEvent.dataTransfer.getData("text");
+                e.target.appendChild(document.getElementById(data));
+
+                // Here we call the handleDrop() function in the controller.
                 scope.$apply(function (scope) {
-                    var fn = scope.drop();
+                    var fn = scope.handle();
                     if ('undefined' !== typeof fn) {
                         fn(item.id, binId);
                     }
                 });
-                return false;
-            }, false);
+            });
         }
     };
 });

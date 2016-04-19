@@ -96,11 +96,10 @@
 
                         <div class="col-md-4">
                             </br>
-                            <h4>NEWSLETTER</h4>
-                            <p>Register your email and receive all the latest news and updates</p>
-                            <input type="email" id="news_email" name="email" ng-model="email" class="form-control"
-                            placeholder="Please enter email address" required>
-                            <input class="btn btn-primary" type="submit" value="Register_newsletter">
+                            <h4>Follow us</h4>
+                            <h6><a href=""><i class="fa fa-btn fa-facebook-square"></i></a>
+                               <a href=""><i class="fa fa-btn fa-twitter-square"></i></a>
+                               <a href=""><i class="fa fa-btn fa-instagram"></i></h6></a>
                         </div>
                     </div>
                 </div>

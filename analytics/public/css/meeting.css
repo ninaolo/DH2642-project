@@ -3,6 +3,10 @@
     height: 250px;
 }
 
+.activity {
+    position: relative;
+}
+
 #attendees {
     height: 300px;
     margin-top: 20px;
