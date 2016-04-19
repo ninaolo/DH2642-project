@@ -1,4 +1,4 @@
-var analytics = angular.module('analytics', ['ngRoute', 'ngResource', 'ngCookies']);
+var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment']);
 
 analytics.config(['$routeProvider',
     function ($routeProvider) {
@@ -57,4 +57,6 @@ analytics.run(function($rootScope, $window) {
 
 
 });
+
+analytics.constant("moment", moment);
 

@@ -1,9 +1,36 @@
-analytics.controller('agendaController', function ($scope) {
+analytics.controller('agendaController', function ($scope, moment) {
+
+    $scope.date = moment('08:00', 'hh:mm');
+    $scope.endTime = $scope.date.clone();
+
+    // A helper method for creating hour/minute ranges.
+    $scope.range = function (start, end) {
+        var rangeList = [];
+        for (var i = 0; i <= (end - start); i++) {
+            rangeList.push(start + i);
+        }
+        return rangeList;
+    };
+
+    $scope.changeStart = function(pickHour, pickMinute) {
+        $scope.date.hour(pickHour);
+        $scope.date.minute(pickMinute);
+    };
+
+    $scope.pickHours = $scope.range(0, 23);
+    $scope.pickHour = "";
+    $scope.pickMinutes = $scope.range(0, 59);
+    $scope.pickHour = "";
+
+    $scope.getTotalTime = function () {
+        var duration = moment.duration(moment($scope.endTime).diff(moment($scope.date)));
+        return moment.duration(moment($scope.endTime).diff(moment($scope.date)));
+    };
 
     $scope.getAgendaTime = function (id) {
-        var agendaTime = new Date($scope.date);
+        var agendaTime = $scope.date.clone();
         for (var i = 0; i < id; i++) {
-            agendaTime.setMinutes(agendaTime.getMinutes() + $scope.agenda[i].duration);
+            agendaTime.add($scope.agenda[i].duration, 'minutes');
         }
         return agendaTime;
     };
@@ -19,15 +46,7 @@ analytics.controller('agendaController', function ($scope) {
 
     $scope.addToAgenda = function (activity) {
         $scope.agenda.push(activity);
-        $scope.endTime.setMinutes($scope.endTime.getMinutes() + activity.duration);
-    };
-
-    $scope.setStartAndEndTime = function () {
-        $scope.date = new Date();
-        $scope.date.setHours(8);
-        $scope.date.setMinutes(0);
-        $scope.date.setSeconds(0);
-        $scope.endTime = new Date($scope.date);
+        $scope.endTime.add(activity.duration, 'minutes');
     };
 
     $scope.init = function () {
@@ -52,7 +71,6 @@ analytics.controller('agendaController', function ($scope) {
 
         $scope.agenda = [];
 
-        $scope.setStartAndEndTime();
     };
 
 });

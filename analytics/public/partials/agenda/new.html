@@ -1,7 +1,19 @@
 <link href="css/meeting.css" rel="stylesheet">
 
 <div class="container-fluid view-fade-in" ng-init="init()">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-2" id="settings">
+        <h4>Settings</h4>
+        <p>Pick a start time:</p>
+        <select ng-init="pickHour = pickHours[8]" ng-model="pickHour" ng-options="hour as hour for hour in pickHours"
+                ng-change="changeStart(pickHour, pickMinute)">
+        </select> :
+        <select ng-init="pickMinute = pickMinutes[0]" ng-model="pickMinute"
+                ng-options="minute as minute for minute in pickMinutes" ng-change="changeStart(pickHour, pickMinute)">
+        </select>
+        <p>Pick a date for the meeting:</p>
+        DATEPICKER
+    </div>
+    <div class="col-md-6 col-md-offset-1">
         <h1>Create a meeting agenda</h1>
         <div id="builder" class="row">
 
@@ -30,7 +42,7 @@
                 <div id="agenda" droppable handle="handleDrop(id)">
                     <div class="row" ng-repeat="activity in agenda track by $index" index="{{$index}}" draggable>
                         <div class="col-md-3 minutes">
-                            {{ getAgendaTime($index) | date : 'HH:mm'}}
+                            {{ getAgendaTime($index) | amDateFormat:'hh:mm'}}
                         </div>
                         <div class="col-md-9">
                             <button class="btn btn-warning" item="item">
@@ -48,10 +60,11 @@
     </div>
     <div class="col-md-2 col-md-offset-1" id="details">
         <h4>Details</h4>
-        <p>Start time: <input id="start-input" value="{{date | date : 'HH:mm'}}"></p>
-        <p>End time: {{endTime | date : 'HH:mm'}} <br>
+        <p>Start time: {{date | amDateFormat:'hh:mm'}} </p>
+        <p>End time: {{endTime | amDateFormat:'hh:mm'}}
+        <p>
         <hr>
-        Total length: {{(endTime - date) | date : 'HH:mm'}}</p>
+        <p>Total length: {{date | amDifference : endTime : 'minutes'}} min</p>
     </div>
 
 </div>
