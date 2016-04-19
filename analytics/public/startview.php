@@ -23,18 +23,8 @@
         <link href="css/navbar.css" rel="stylesheet">
 
         <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            var baseUrl = "http://localhost:5555/DH2642-project/analytics/public";
-            var apiUrl = "http://localhost:5555/DH2642-project/analytics/public/api";
-=======
             var baseUrl = "http://localhost:81/DH2642-project/analytics/public";
             var apiUrl = "http://localhost:81/DH2642-project/analytics/public/api";
->>>>>>> f751417ab79af298c95bc932fef91beb38430d13
-=======
-            var baseUrl = "http://localhost:81/DH2642-project/analytics/public";
-            var apiUrl = "http://localhost:81/DH2642-project/analytics/public/api";
->>>>>>> f751417ab79af298c95bc932fef91beb38430d13
         </script>
 
     </head>
