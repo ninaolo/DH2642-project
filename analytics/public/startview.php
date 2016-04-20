@@ -113,7 +113,6 @@
 
     <!-- Services -->
     <script src="js/services/userService.js"></script>
-    <script src="js/services/activityService.js"></script>
     <script src="js/services/agendaService.js"></script>
 
     </body>

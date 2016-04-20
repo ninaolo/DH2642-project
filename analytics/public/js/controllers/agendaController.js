@@ -1,19 +1,17 @@
-analytics.controller('agendaController', ['$scope', 'moment', 'userService', 'activityService',
-    function ($scope, moment, userService, activityService) {
+analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService',
+    function ($scope, moment, agendaService, userService) {
 
-        $scope.pickHour = "08";
-        $scope.pickMinute = "00";
-        $scope.date = moment($scope.pickHour + ":" + $scope.pickMinute, 'HH:mm');
-        $scope.endTime = $scope.date.clone();
+        $scope.pickHour = agendaService.getStartHour();
+        $scope.pickMinute = agendaService.getStartMinute();
         $scope.attendees = [];
-        $scope.agenda = [];
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
             $scope.users = response;
         });
 
-        activityService.getActivities({
+        // Get the logged in user's parked activities.
+        agendaService.getActivities({
             'user_id': userService.getUser().id
         }).success(function (response) {
             $scope.activities = response;
@@ -29,22 +27,30 @@ analytics.controller('agendaController', ['$scope', 'moment', 'userService', 'ac
             return rangeList;
         };
 
-        $scope.changeStart = function (pickHour, pickMinute) {
-            var duration = $scope.getTotalTime();
-            $scope.date.hour(pickHour);
-            $scope.date.minute(pickMinute);
-            $scope.endTime = $scope.date.clone();
-            $scope.endTime.add(duration);
+        $scope.getDate = function() {
+            return agendaService.getDate();
+        };
+
+        $scope.getEndTime = function() {
+            return agendaService.getEndTime();
+        };
+
+        $scope.getAgenda = function() {
+            return agendaService.getAgenda();
+        };
+
+        $scope.changeStartTime = function (pickHour, pickMinute) {
+            agendaService.changeStartTime(pickHour, pickMinute);
         };
 
         $scope.getTotalTime = function () {
-            return moment.duration(moment($scope.endTime).diff(moment($scope.date)));
+            return agendaService.getTotalTime();
         };
 
         $scope.getAgendaTime = function (id) {
-            var agendaTime = $scope.date.clone();
+            var agendaTime = agendaService.getDate().clone();
             for (var i = 0; i < id; i++) {
-                agendaTime.add($scope.agenda[i].duration, 'minutes');
+                agendaTime.add(agendaService.getAgenda()[i].duration, 'minutes');
             }
             return agendaTime;
         };
@@ -59,8 +65,8 @@ analytics.controller('agendaController', ['$scope', 'moment', 'userService', 'ac
         };
 
         $scope.addToAgenda = function (activity) {
-            $scope.agenda.push(activity);
-            $scope.endTime.add(activity.duration, 'minutes');
+            agendaService.addToAgenda(activity);
+            agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
         };
 
     }]);

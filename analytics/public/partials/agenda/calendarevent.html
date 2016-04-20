@@ -52,4 +52,13 @@
         </div>
     </div>
 
+    <div class="col-md-2 col-md-offset-1" id="details">
+        <h4>Details</h4>
+        <p>Start time: {{getDate() | amDateFormat:'HH:mm'}} </p>
+        <p>End time: {{getEndTime() | amDateFormat:'HH:mm'}}
+        <p>
+        <hr>
+        <p>Total length: {{getEndTime() | amDifference : getDate() : 'minutes'}} min</p>
+    </div>
+
 </div>
