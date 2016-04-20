@@ -1,5 +1,5 @@
-analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService',
-    function ($scope, moment, agendaService, userService) {
+analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log',
+    function ($scope, moment, agendaService, userService, $uibModal, $log) {
 
         $scope.pickHour = agendaService.getStartHour();
         $scope.pickMinute = agendaService.getStartMinute();
@@ -27,15 +27,15 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return rangeList;
         };
 
-        $scope.getDate = function() {
+        $scope.getDate = function () {
             return agendaService.getDate();
         };
 
-        $scope.getEndTime = function() {
+        $scope.getEndTime = function () {
             return agendaService.getEndTime();
         };
 
-        $scope.getAgenda = function() {
+        $scope.getAgenda = function () {
             return agendaService.getAgenda();
         };
 
@@ -69,8 +69,31 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
         };
 
-        $scope.addAttendee = function(user) {
+        $scope.addAttendee = function (user) {
             alert("add attendee " + user.name);
+        };
+
+        $scope.modalUpdate = function (size) {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/agenda/modal.html',
+                controller: function ($scope, $uibModalInstance, activity) {
+                    $scope.activity = activity;
+                },
+                size: size,
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         };
 
     }]);
