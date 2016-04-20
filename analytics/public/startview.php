@@ -23,8 +23,8 @@
         <link href="css/navbar.css" rel="stylesheet">
 
         <script>
-            var baseUrl = "http://localhost:81/DH2642-project/analytics/public";
-            var apiUrl = "http://localhost:81/DH2642-project/analytics/public/api";
+            var baseUrl = "http://localhost:5555/DH2642-project/analytics/public";
+            var apiUrl = "http://localhost:5555/DH2642-project/analytics/public/api";
         </script>
 
     </head>
