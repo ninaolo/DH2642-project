@@ -41,7 +41,18 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     agendaService.addAttendee = function(attendee) {
-        attendees.push(attendee);
+        // Don't add attendee if already in list.
+        if (attendees.indexOf(attendee) === -1) {
+            attendees.push(attendee);
+        }
+    };
+
+    agendaService.removeAttendee = function(id) {
+        for (var i = 0; i < attendees.length; i++) {
+            if (attendees[i].id === id) {
+                attendees.splice(i, 1);
+            }
+        }
     };
 
     agendaService.getAttendees = function() {

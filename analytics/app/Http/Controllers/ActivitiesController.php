@@ -35,9 +35,11 @@ class ActivitiesController extends Controller
     }
   }
 
+  // TODO: check input.
   public function update($id, Request $request)
   {
-    // TODO
+    $activity = Activity::findOrFail($id);
+    $activity->update($request)->save();
   }
 
   public function destroy($id)

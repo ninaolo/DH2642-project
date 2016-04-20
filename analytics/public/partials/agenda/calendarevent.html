@@ -4,9 +4,9 @@
 
     <div id="attendees" class="col-md-2 col-md-offset-1">
         <h4>Attendees</h4>
-        <p>Name 1</p>
-        <p>Name 2</p>
-        <p>Name 3</p>
+        <p ng-repeat="attendee in getAttendees()">{{attendee.name}}
+            <span ng-click="removeAttendee(attendee.id)"><i class="fa fa-btn fa-remove delete-cross"></i></span>
+        </p>
     </div>
 
     <div class="col-md-4 col-md-offset-1">
@@ -38,7 +38,7 @@
                      </div>
                 </div>
                 <ul class="list-group" ng-show="!calForm.instantsearch.$pristine">
-                    <li onclick="newActivity()" class="list-group-item" ng-repeat="user in users | filter: username | limitTo: 3">
+                    <li class="list-group-item" ng-repeat="user in users | filter: username | limitTo: 3">
                         <div class="search-link" ng-click="addAttendee(user)">{{user.name}}</div>
                     </li>
                 </ul>

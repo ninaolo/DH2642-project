@@ -70,11 +70,18 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         };
 
         $scope.addAttendee = function (user) {
-            alert("add attendee " + user.name);
+            agendaService.addAttendee(user);
+        };
+
+        $scope.getAttendees = function() {
+            return agendaService.getAttendees();
+        };
+
+        $scope.removeAttendee = function(id) {
+            agendaService.removeAttendee(id);
         };
 
         $scope.modalUpdate = function (size) {
-
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/modal.html',
