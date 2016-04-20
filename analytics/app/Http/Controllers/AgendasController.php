@@ -33,13 +33,16 @@ class AgendasController extends Controller
     }
   }
 
+  // TODO: check input.
   public function update($id, Request $request)
   {
-    // TODO
+    $agenda = Agenda::findOrFail($id);
+    $agenda->update($request)->save();
   }
 
   public function destroy($id)
   {
-      // TODO
+      $agenda = Agenda::findOrFail($id);
+      $agenda->delete();
   }
 }

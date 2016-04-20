@@ -44,6 +44,7 @@ class ActivitiesController extends Controller
 
   public function destroy($id)
   {
-      // TODO
+      $activity = Activity::findOrFail($id);
+      $activity->delete();
   }
 }
