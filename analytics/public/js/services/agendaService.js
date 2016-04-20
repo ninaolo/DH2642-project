@@ -6,6 +6,7 @@ analytics.factory('agendaService', function ($http, moment) {
     var date = moment(startHour + ":" + startMinute, 'HH:mm');
     var endTime = date.clone();
     var agenda = [];
+    var attendees = [];
 
     agendaService.getStartHour = function() {
         return startHour;
@@ -37,6 +38,14 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.addToAgenda = function(activity) {
         agenda.push(activity);
+    };
+
+    agendaService.addAttendee = function(attendee) {
+        attendees.push(attendee);
+    };
+
+    agendaService.getAttendees = function() {
+        return attendees;
     };
 
     agendaService.changeStartTime = function(hour, minute) {

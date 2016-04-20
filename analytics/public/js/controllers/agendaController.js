@@ -12,7 +12,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
         // Get the logged in user's parked activities.
         agendaService.getActivities({
-            'user_id': userService.getUser().id
+            'user_id': userService.getLoggedUser().id
         }).success(function (response) {
             $scope.activities = response;
         });
@@ -27,15 +27,15 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return rangeList;
         };
 
-        $scope.getDate = function() {
+        $scope.getDate = function () {
             return agendaService.getDate();
         };
 
-        $scope.getEndTime = function() {
+        $scope.getEndTime = function () {
             return agendaService.getEndTime();
         };
 
-        $scope.getAgenda = function() {
+        $scope.getAgenda = function () {
             return agendaService.getAgenda();
         };
 
@@ -69,6 +69,9 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
         };
 
+        $scope.addAttendee = function (user) {
+            alert("add attendee " + user.name);
+        };
 
         $scope.modalUpdate = function (size) {
 
