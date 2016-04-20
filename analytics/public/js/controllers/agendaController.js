@@ -1,5 +1,5 @@
-analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService',
-    function ($scope, moment, agendaService, userService) {
+analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log',
+    function ($scope, moment, agendaService, userService, $uibModal, $log) {
 
         $scope.pickHour = agendaService.getStartHour();
         $scope.pickMinute = agendaService.getStartMinute();
@@ -67,6 +67,30 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.addToAgenda = function (activity) {
             agendaService.addToAgenda(activity);
             agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
+        };
+
+
+        $scope.modalUpdate = function (size) {
+
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/agenda/modal.html',
+                controller: function ($scope, $uibModalInstance, activity) {
+                    $scope.activity = activity;
+                },
+                size: size,
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         };
 
     }]);

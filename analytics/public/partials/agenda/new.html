@@ -44,10 +44,15 @@
                         <div class="col-md-3 minutes">
                             {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <button class="btn btn-warning" item="item">
                                 {{activity.name}}
                             </button>
+                        </div>
+						<div>
+                            <a ng-click="modalUpdate('sm',activity)">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

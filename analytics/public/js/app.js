@@ -1,4 +1,4 @@
-var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment']);
+var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap']);
 
 analytics.config(['$routeProvider',
     function ($routeProvider) {
