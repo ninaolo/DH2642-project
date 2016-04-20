@@ -39,7 +39,7 @@
                 </div>
                 <ul class="list-group" ng-show="!calForm.instantsearch.$pristine">
                     <li onclick="newActivity()" class="list-group-item" ng-repeat="user in users | filter: username | limitTo: 3">
-                        {{user.name}}
+                        <div class="search-link" ng-click="addAttendee(user)">{{user.name}}</div>
                     </li>
                 </ul>
 
