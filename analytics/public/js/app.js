@@ -35,7 +35,7 @@ analytics.config(['$routeProvider',
         });
     }]);
 
-analytics.run(function($rootScope, $window, userService) {
+analytics.run(function($rootScope, $window, userService, agendaService) {
 
     // Check if user is logged in and set userService state variables.
     userService.checkLogin();
@@ -57,6 +57,8 @@ analytics.run(function($rootScope, $window, userService) {
             //.addIndicators({name: id}) // add helpful indicators for debugging
             .addTo(controller);
     };
+
+    agendaService.resetState();
 
 });
 

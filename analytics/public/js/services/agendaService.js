@@ -1,12 +1,13 @@
 analytics.factory('agendaService', function ($http, moment) {
 
+    // Internal variables used by the service for having a state. These are set by the method resetState().
     var agendaService = {};
-    var startHour = "08";
-    var startMinute = "00";
-    var date = moment(startHour + ":" + startMinute, 'HH:mm');
-    var endTime = date.clone();
-    var agenda = [];
-    var attendees = [];
+    var startHour;
+    var startMinute;
+    var date;
+    var endTime;
+    var agenda;
+    var attendees;
 
     agendaService.getStartHour = function() {
         return startHour;
@@ -86,6 +87,16 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.getActivity = function (id) {
         return $http.get(apiUrl + '/activities/' + id);
+    };
+
+    // Resets the state of the service.
+    agendaService.resetState = function() {
+        startHour = "08";
+        startMinute = "00";
+        date = moment(startHour + ":" + startMinute, 'HH:mm');
+        endTime = date.clone();
+        agenda = [];
+        attendees = [];
     };
 
     return agendaService;

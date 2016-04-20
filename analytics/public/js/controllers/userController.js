@@ -1,4 +1,4 @@
-analytics.controller("userController", function ($scope, $rootScope, userService, $window) {
+analytics.controller("userController", function ($scope, $rootScope, userService, $window, agendaService) {
 
     $scope.email = "";
     $scope.password = "";
@@ -22,6 +22,7 @@ analytics.controller("userController", function ($scope, $rootScope, userService
                     alert(data);
                 })
         }
+        agendaService.resetState();
     };
 
     $scope.doLogout = function () {
@@ -33,9 +34,8 @@ analytics.controller("userController", function ($scope, $rootScope, userService
             userService.checkLogin();
             $window.location.href = "#/info";
             console.log(response);
-        }).error(function (data, status, headers) {
-            //
         });
+        agendaService.resetState();
     };
 
     $scope.register = function () {
