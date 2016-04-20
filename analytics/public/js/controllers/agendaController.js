@@ -7,14 +7,18 @@ analytics.controller('agendaController', function ($scope, moment) {
     $scope.range = function (start, end) {
         var rangeList = [];
         for (var i = 0; i <= (end - start); i++) {
-            rangeList.push(start + i);
+            var digitWithLeadingZeros = (1e4 + "" + start + i).slice(-2);
+            rangeList.push(digitWithLeadingZeros);
         }
         return rangeList;
     };
 
     $scope.changeStart = function(pickHour, pickMinute) {
+        var duration = $scope.getTotalTime();
         $scope.date.hour(pickHour);
         $scope.date.minute(pickMinute);
+        $scope.endTime = $scope.date.clone();
+        $scope.endTime.add(duration);
     };
 
     $scope.pickHours = $scope.range(0, 23);
@@ -23,7 +27,6 @@ analytics.controller('agendaController', function ($scope, moment) {
     $scope.pickHour = "";
 
     $scope.getTotalTime = function () {
-        var duration = moment.duration(moment($scope.endTime).diff(moment($scope.date)));
         return moment.duration(moment($scope.endTime).diff(moment($scope.date)));
     };
 

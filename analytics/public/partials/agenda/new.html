@@ -42,7 +42,7 @@
                 <div id="agenda" droppable handle="handleDrop(id)">
                     <div class="row" ng-repeat="activity in agenda track by $index" index="{{$index}}" draggable>
                         <div class="col-md-3 minutes">
-                            {{ getAgendaTime($index) | amDateFormat:'hh:mm'}}
+                            {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
                         </div>
                         <div class="col-md-9">
                             <button class="btn btn-warning" item="item">
@@ -60,11 +60,11 @@
     </div>
     <div class="col-md-2 col-md-offset-1" id="details">
         <h4>Details</h4>
-        <p>Start time: {{date | amDateFormat:'hh:mm'}} </p>
-        <p>End time: {{endTime | amDateFormat:'hh:mm'}}
+        <p>Start time: {{date | amDateFormat:'HH:mm'}} </p>
+        <p>End time: {{endTime | amDateFormat:'HH:mm'}}
         <p>
         <hr>
-        <p>Total length: {{date | amDifference : endTime : 'minutes'}} min</p>
+        <p>Total length: {{endTime | amDifference : date : 'minutes'}} min</p>
     </div>
 
 </div>

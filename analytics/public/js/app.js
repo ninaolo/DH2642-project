@@ -58,5 +58,5 @@ analytics.run(function($rootScope, $window) {
 
 });
 
+// For handling dates.
 analytics.constant("moment", moment);
-
