@@ -3,7 +3,8 @@ var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMom
 analytics.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl: 'partials/home.html'
+            templateUrl: 'partials/home.html',
+            controller: 'homeController'
         }).when('/login', {
             templateUrl: 'partials/login.html',
             controller: 'userController'
@@ -34,14 +35,16 @@ analytics.config(['$routeProvider',
         });
     }]);
 
-analytics.run(function($rootScope, $window) {
+analytics.run(function($rootScope, $window, userService) {
+
+    // Check if user is logged in and set userService state variables.
+    userService.checkLogin();
 
     $rootScope.redirectNotFound = function() {
         $rootScope.header = "Oops!";
         $rootScope.info = "An error occurred. The page you entered does not exist.";
         $window.location.href = "#/info";
     };
-
 
     $rootScope.addScrollMagic = function(id) {
         console.log(id);
@@ -54,7 +57,6 @@ analytics.run(function($rootScope, $window) {
             //.addIndicators({name: id}) // add helpful indicators for debugging
             .addTo(controller);
     };
-
 
 });
 

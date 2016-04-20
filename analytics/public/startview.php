@@ -34,40 +34,7 @@
     <div id="wrap">
         <div id="main">
 
-                <nav class="navbar navbar-inverse navbar-fixed-top">
-                  <div class="container-fluid">
-                    <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-
-                      <a id="meeter-home" href="#/"><i id="meeter-suitcase" class="fa fa-btn fa-briefcase"></i> Meeter</a>
-
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse" ng-controller="navController">
-                      <ul class="nav navbar-nav navbar-right" ng-switch on="loggedIn">
-                        <li><a href="#/about">Meeter FAQ</a></li>
-
-                        <li ng-switch-when="true"><a href="#/colleagues">Colleagues</a></li>
-
-                        <li class="dropdown" ng-switch-when="true">
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{user.name}} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#/profile/{{user.id}}"><i class="fa fa-btn fa-user"></i> Profile</a></li>
-                                <li><a href="#/agenda/new"><i class="fa fa-btn fa-plus"></i> New agenda</a></li>
-                                <li><a href="#/logout"><i class="fa fa-btn fa-sign-out"></i> Log out</a></li>
-                            </ul>
-                        </li>
-
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
+        <ng-include src="'partials/navbar.html'" ng-controller="homeController"></ng-include>
 
             <!-- Main Angular content -->
             <div ng-view></div>
@@ -134,7 +101,7 @@
     <script src="js/app.js"></script>
 
     <!-- Controllers -->
-    <script src="js/controllers/navController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
     <script src="js/controllers/userController.js"></script>
     <script src="js/controllers/profileController.js"></script>
     <script src="js/controllers/colleaguesController.js"></script>
@@ -146,6 +113,8 @@
 
     <!-- Services -->
     <script src="js/services/userService.js"></script>
+    <script src="js/services/activityService.js"></script>
+    <script src="js/services/agendaService.js"></script>
 
     </body>
 

@@ -4,7 +4,7 @@
     <h1 id="welcome" class="fade-in">Welcome to Meeter</h1>
     <p id="info" class="fade-in">Meeter is an office platform for building meeting agendas. <br>
         Share your agendas with colleagues and connect to Google Calendar.</p>
-    <div ng-switch on="loggedIn">
+    <div ng-switch on="getLoggedIn()">
         <a href="#/login" ng-switch-when="false" class="btn btn-primary fade-in">Login</a>
         <a href="#/register" ng-switch-when="false" class="btn btn-primary fade-in">Register</a>
     </div>

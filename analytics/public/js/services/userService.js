@@ -1,6 +1,24 @@
-analytics.factory('userService', function ($http, $rootScope) {
+analytics.factory('userService', function ($http) {
 
     var userService = {};
+    var loggedIn = false;
+    var loggedUser = {};
+
+    userService.setLoggedIn = function(val) {
+        loggedIn = val;
+    };
+
+    userService.setLoggedUser = function(u) {
+        loggedUser = u;
+    };
+
+    userService.getLoggedUser = function() {
+        return loggedUser;
+    };
+
+    userService.getLoggedIn = function() {
+        return loggedIn;
+    };
 
     userService.doLogin = function (loginData) {
         return $http({
@@ -30,13 +48,13 @@ analytics.factory('userService', function ($http, $rootScope) {
         return $http.get(apiUrl + '/checklogin')
             .success(function (data) {
                 if (data === "false") {
-                    $rootScope.loggedIn = "false";
-                    $rootScope.user = "";
+                   loggedIn = "false";
+                    loggedUser = "";
                 } else {
-                    $rootScope.loggedIn = "true";
-                    $rootScope.user = data;
+                    loggedIn = "true";
+                    loggedUser = data;
                 }
-                console.log('check login: ' + $rootScope.loggedIn);
+                console.log('check login: ' + loggedIn);
                 console.log(data);
             });
     };

@@ -13,10 +13,10 @@ analytics.controller("userController", function ($scope, $rootScope, userService
 
             userService.doLogin(data)
                 .success(function (response) {
-                    $rootScope.loggedIn = "true";
-                    $rootScope.user = response;
+                    userService.setLoggedIn("true");
+                    userService.setLoggedUser(response);
                     userService.checkLogin();
-                    $window.location.href = "#/profile/" + $rootScope.user.id;
+                    $window.location.href = "#/profile/" + response.id;
                 })
                 .error(function (data, status, headers) {
                     alert(data);
@@ -28,8 +28,8 @@ analytics.controller("userController", function ($scope, $rootScope, userService
         userService.doLogout().success(function (response) {
             $rootScope.header = response.header;
             $rootScope.info = response.info;
-            $rootScope.loggedIn = "false";
-            $rootScope.user = "";
+            userService.setLoggedIn("false");
+            userService.setLoggedUser("");
             userService.checkLogin();
             $window.location.href = "#/info";
             console.log(response);
@@ -48,7 +48,7 @@ analytics.controller("userController", function ($scope, $rootScope, userService
         userService.register(data).success(function (response) {
             $rootScope.header = response.header;
             $rootScope.info = response.info;
-            $rootScope.user = response.user;
+            userService.setLoggedUser(response.user);
             userService.checkLogin();
             $window.location.href = "#/info";
         }).error(function (response) {

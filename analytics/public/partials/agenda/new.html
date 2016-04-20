@@ -1,14 +1,14 @@
 <link href="css/meeting.css" rel="stylesheet">
 
-<div class="container-fluid view-fade-in" ng-init="init()">
+<div class="container-fluid view-fade-in">
     <div class="col-md-2" id="settings">
         <h4>Settings</h4>
         <p>Pick a start time:</p>
-        <select ng-init="pickHour = pickHours[8]" ng-model="pickHour" ng-options="hour as hour for hour in pickHours"
+        <select ng-model="pickHour" ng-options="hour as hour for hour in range(0, 23)"
                 ng-change="changeStart(pickHour, pickMinute)">
         </select> :
-        <select ng-init="pickMinute = pickMinutes[0]" ng-model="pickMinute"
-                ng-options="minute as minute for minute in pickMinutes" ng-change="changeStart(pickHour, pickMinute)">
+        <select ng-model="pickMinute" ng-options="minute as minute for minute in range(0,59)"
+                ng-change="changeStart(pickHour, pickMinute)">
         </select>
         <p>Pick a date for the meeting:</p>
         DATEPICKER
@@ -55,7 +55,7 @@
 
         </div>
 
-        <a href="#/agenda/invite" id="invite-btn" class="btn btn-primary">Invite colleagues >></a>
+        <a href="#/agenda/invite" id="invite-btn" class="btn btn-primary buttons">Invite colleagues >></a>
 
     </div>
     <div class="col-md-2 col-md-offset-1" id="details">
