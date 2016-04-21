@@ -46,7 +46,7 @@
 }
 
 /*Use to set size of datepicker*/
-.custom-size .btn-sm {
+.custom-size .btn{
     padding: 4px 8px;
     font-size: 11px;
     line-height: 1.5;
