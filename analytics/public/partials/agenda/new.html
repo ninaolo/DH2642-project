@@ -1,63 +1,70 @@
 <link href="css/meeting.css" rel="stylesheet">
 
 <div class="container-fluid view-fade-in">
-    <div class="col-md-2" id="settings">
-        <h4>Settings</h4>
-        <p>Pick a start time:</p>
-        <select ng-model="pickHour" ng-options="hour as hour for hour in range(0, 23)"
-                ng-change="changeStartTime(pickHour, pickMinute)">
-        </select> :
-        <select ng-model="pickMinute" ng-options="minute as minute for minute in range(0,59)"
-                ng-change="changeStartTime(pickHour, pickMinute)">
-        </select>
-        <p>Pick a date for the meeting:</p>
 
-        <div>
+    <div class="col-md-2" id="settings">
+        <div class="row">
+            <h4>Settings</h4>
+            <p>Pick a start time:</p>
+            <select ng-model="pickHour" ng-options="hour as hour for hour in range(0, 23)"
+                    ng-change="changeStartTime(pickHour, pickMinute)">
+            </select> :
+            <select ng-model="pickMinute" ng-options="minute as minute for minute in range(0,59)"
+                    ng-change="changeStartTime(pickHour, pickMinute)">
+            </select>
+        </div>
+        <div class="row">
+            <p>Pick a date for the meeting:</p>
             <uib-datepicker init-date='Date.now' ng-model="date" starting-day="1" min-date="dateFrom" show-weeks="true"
                             class="custom-size"></uib-datepicker>
         </div>
     </div>
+
     <div class="col-md-6 col-md-offset-1">
         <h1>Create a meeting agenda</h1>
         <div id="builder" class="row">
-
             <div class="col-md-6">
-                <a href="" ng-click="modalNew('sm')"><h4><i class="fa fa-btn fa-plus"></i> New activity</h4></a>
-                <p>These are your parked activities.</p>
-                <div id="activities">
-                    <div class="row activity" ng-repeat="activity in activities" index="{{$index}}" draggable>
-                        <div class="col-md-3 minutes">
-                            {{activity.duration}} min
-                        </div>
-                        <div class="col-md-9">
-                            <button class="btn btn-warning">
-                                {{activity.name}}
-                            </button>
-                        </div>
-                        <div class="edit" ng-click="modalUpdate('sm',activity)">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </div>
-                        <div class="edit" ng-click="modalDelete('sm',activity)">
-                            <i class="glyphicon glyphicon-remove"></i>
+                <div class="row">
+                    <a href="" ng-click="modalNew('sm')"><h4><i class="fa fa-btn fa-plus"></i> New activity</h4></a>
+                    <p>These are your parked activities.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="activities">
+                        <div class="row" ng-repeat="activity in activities">
+                            <div class="col-md-3 minutes">
+                                {{activity.duration}} min
+                            </div>
+                            <div class="col-md-8 no-margin">
+                                <button class="btn btn-warning activity" index="{{$index}}" draggable>
+                                    {{activity.name}}
+                                </button>
+                            </div>
+                            <div class="col-md-1 no-margin">
+                                <div class="edit" ng-click="modalUpdate('sm',activity)">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
             <div class="col-md-6">
-                <h4>Agenda</h4>
-                <p>Your meeting agenda - drop activities here!</p>
-                <div id="agenda" droppable handle="handleDrop(id)">
-                    <div class="row" ng-repeat="activity in getAgenda() track by $index" index="{{$index}}" draggable>
-                        <div class="col-md-3 minutes">
-                            {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
-                        </div>
-                        <div class="col-md-8">
-                            <button class="btn btn-warning" item="item">
-                                {{activity.name}}
-                            </button>
+                <div class="row">
+                    <h4>Agenda</h4>
+                    <p>Your meeting agenda - drop activities here!</p>
+                </div>
+                <div class="row" droppable handle="handleDrop(id)">
+                    <div class="col-md-12" id="agenda">
+                        <div class="row" ng-repeat="activity in getAgenda() track by $index">
+                            <div class="col-md-3 minutes">
+                                {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
+                            </div>
+                            <div class="col-md-9 no-margin">
+                                <button class="btn btn-warning" item="item">
+                                    {{activity.name}}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,8 +82,10 @@
         <p>Start time: {{getDate() | amDateFormat:'HH:mm'}} </p>
         <p>End time: {{getEndTime() | amDateFormat:'HH:mm'}}
         <p>
-        <hr>
+        <hr id="line">
         <p>Total length: {{getEndTime() | amDifference : getDate() : 'minutes'}} min</p>
+
+        <div id="trashcan" droppable handle="handleDrop(id, true)"><i class="fa fa-btn fa-trash"></i></div>
     </div>
 
 </div>

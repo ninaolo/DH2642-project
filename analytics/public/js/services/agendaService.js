@@ -129,7 +129,7 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     // Add a new activity
-    agendaService.newActivity = function (activityName, duration) {
+    agendaService.newActivity = function (activityName, newDuration) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
@@ -138,16 +138,12 @@ analytics.factory('agendaService', function ($http, moment) {
             method: "POST",
             data: {
                 name: activityName,
-                description: duration
+                duration: newDuration
             }
         });
     };
 
-    // Add a new activity
-    agendaService.updateActivity = function (updatedName, duration, id) {
-        console.log(updatedName);
-        console.log(duration);
-        console.log(id);
+    agendaService.updateActivity = function (updatedName, newDuration, id) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
@@ -156,7 +152,7 @@ analytics.factory('agendaService', function ($http, moment) {
             method: "PUT",
             data: {
                 name: updatedName,
-                description: duration
+                duration: newDuration
             }
         });
     };

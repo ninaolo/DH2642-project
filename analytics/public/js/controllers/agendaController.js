@@ -62,13 +62,12 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return agendaTime;
         };
 
-        // This function is called from the droppable directive.
-        $scope.handleDrop = function (id) {
-            $scope.addToAgenda($scope.activities[id]);
-        };
-
-        $scope.newActivity = function () {
-            alert("new");
+        $scope.handleDrop = function (id, isTrash) {
+            if (isTrash) {
+                $scope.modalDelete('sm', $scope.activities[id]);
+            } else {
+                $scope.addToAgenda($scope.activities[id]);
+            }
         };
 
         $scope.addToAgenda = function (activity) {
@@ -89,7 +88,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         };
 
         $scope.modalUpdate = function (size, activity) {
-            alert(activity.id);
             $scope.selectedActivity = activity;
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -111,9 +109,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     };
 
                     $scope.editActivity = function () {
-                        // alert(this.duration);
-                        //alert(activity.name);
-                        alert("Update activity");
                         agendaService.updateActivity(activity.name, activity.duration, $scope.activity.id);
                     };
                 },
@@ -142,9 +137,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     };
 
                     $scope.createActivity = function () {
-                        alert(this.duration);
-                        alert(this.name);
-                        alert("create new activity");
                         agendaService.newActivity(this.name, this.duration);
                     };
 
@@ -165,7 +157,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         };
 
         $scope.Delete = function (size, activity) {
-            alert(activity.id);
             $scope.selectedActivity = activity;
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -187,7 +178,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     };
 
                     $scope.editActivity = function () {
-                        alert("delete");
                         agendaService.removeActivity($scope.activity.id);
                     };
                 },
@@ -197,7 +187,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
 
         $scope.modalDelete = function (size, activity) {
-            alert(activity.id);
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/deleteActivity.html',
@@ -212,7 +201,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     };
 
                     $scope.deleteActivity = function () {
-                        alert("delete");
                         agendaService.removeActivity($scope.activity.id);
                     };
 
@@ -235,5 +223,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.$watch('date', function () {
             agendaService.changeDate(moment($scope.date));
         });
+
 
     }]);
