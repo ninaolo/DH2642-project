@@ -112,9 +112,9 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
                     $scope.editActivity = function () {
                         // alert(this.duration);
-                        //alert(this.name);
+                        //alert(activity.name);
                         alert("Update activity");
-                        agendaService.updateActivity(this.name, this.duration, $scope.activity.id);
+                        agendaService.updateActivity(activity.name, activity.duration, $scope.activity.id);
                     };
                 },
                 size: size

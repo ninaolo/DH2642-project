@@ -8,18 +8,19 @@
 
                 <div class="form-group">
                     <label>Name</label>
-                    <input name="activity" data-ng-model="name" type="txt" placeholder="Name of activity"
-                           class="form-control" required>
+                    <input name="activity" data-ng-model="activity.name" type="txt" placeholder="Name of activity"
+                           class="form-control"  required>
                     <p ng-show="newActivityForm.activity.$invalid && !newActivityForm.activity.$pristine" class="error">Your activity needs a name</p>
                 </div>
 
                 <div class="form-group">
                     <label>Time</label>
-                    <select data-ng-model="duration" ng-options="minute as minute for minute in range(0, 60)"></select>
+                    <select data-ng-model="activity.duration" ng-options="minute as minute for minute in range(0, 60)">
+                    </select>
                     <p ng-show="newActivityForm.duration.$invalid && !newActivityForm.activity.$pristine" class="error">Invalid time for an activity</p>
                 </div>
 
-
+                <p>{{activity.duration}}</p>
 
             </form>
             </fieldset>
