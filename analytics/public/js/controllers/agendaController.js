@@ -82,6 +82,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         };
 
         $scope.modalUpdate = function (size,activity) {
+            alert(activity.id);
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/editActivity.html',
@@ -100,7 +101,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         alert(this.duration);
                         alert(this.name);
                         alert("Update activity");
-                        agendaService.updateActivity(this.name,this.duration,$scope.activity.id);
+                        agendaService.updateActivity(this.name,this.duration,activity.id);
                     };
                 },
                 size: size,
@@ -156,10 +157,11 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         };
 
         $scope.modalDelete= function (size, activity) {
+            alert(activity.id);
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/deleteActivity.html',
-                controller: function ($scope, $uibModalInstance) {
+                controller: function ($scope, $uibModalInstance,activity) {
 
                     $scope.ok = function () {
                         $uibModalInstance.close($scope.activity);
