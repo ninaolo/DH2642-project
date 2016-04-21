@@ -4,6 +4,8 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.pickHour = agendaService.getStartHour();
         $scope.pickMinute = agendaService.getStartMinute();
         $scope.attendees = [];
+        $scope.name = "";
+        $scope.description = "";
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -25,6 +27,10 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                 rangeList.push(digitWithLeadingZeros);
             }
             return rangeList;
+        };
+
+        $scope.setNameAndDescription = function() {
+            agendaService.setNameAndDescription($scope.name, $scope.description);
         };
 
         $scope.getDate = function () {

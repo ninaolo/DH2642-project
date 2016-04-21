@@ -53,26 +53,15 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
 
         $scope.createCalendarEvent = function() {
             var event = {
-                'summary': 'Ett testevent',
-                'location': 'Test',
-                'description': 'Test',
+                'summary': agendaService.getName(),
+                'description': agendaService.getDescription(),
                 'start': {
-                    'dateTime': '2016-04-22T09:00:00-07:00',
-                    'timeZone': 'America/Los_Angeles'
+                    'dateTime': agendaService.getDate().toISOString()
                 },
                 'end': {
-                    'dateTime': '2016-04-22T17:00:00-07:00',
-                    'timeZone': 'America/Los_Angeles'
+                    'dateTime': agendaService.getEndTime().toISOString()
                 },
-                'attendees': [
-                ],
-                'reminders': {
-                    'useDefault': false,
-                    'overrides': [
-                        {'method': 'email', 'minutes': 24 * 60},
-                        {'method': 'popup', 'minutes': 10}
-                    ]
-                }
+                'attendees': agendaService.getAttendeeEmails()
             };
 
             googleService.createCalendarEvent(event, $scope.handleCalendarEvent);

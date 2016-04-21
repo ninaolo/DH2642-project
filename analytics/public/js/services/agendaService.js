@@ -8,47 +8,64 @@ analytics.factory('agendaService', function ($http, moment) {
     var endTime;
     var agenda;
     var attendees;
+    var name;
+    var description;
 
-    agendaService.getStartHour = function() {
+    agendaService.getStartHour = function () {
         return startHour;
     };
 
-    agendaService.getStartMinute = function() {
+    agendaService.getStartMinute = function () {
         return startMinute;
     };
 
-    agendaService.getDate = function() {
+    agendaService.getDate = function () {
         return date;
     };
 
-    agendaService.setDate = function(newDate) {
+    agendaService.setDate = function (newDate) {
         date = newDate;
+        console.log(date);
     };
 
-    agendaService.getEndTime = function() {
+    agendaService.getEndTime = function () {
         return endTime;
     };
 
-    agendaService.setEndTime = function(newTime) {
+    agendaService.setEndTime = function (newTime) {
         endTime = newTime;
+        console.log(endTime);
     };
 
-    agendaService.getAgenda = function() {
+    agendaService.getName = function () {
+        return name;
+    };
+
+    agendaService.getDescription = function () {
+        return description;
+    };
+
+    agendaService.setNameAndDescription = function (n, d) {
+        name = n;
+        description = d;
+    };
+
+    agendaService.getAgenda = function () {
         return agenda;
     };
 
-    agendaService.addToAgenda = function(activity) {
+    agendaService.addToAgenda = function (activity) {
         agenda.push(activity);
     };
 
-    agendaService.addAttendee = function(attendee) {
+    agendaService.addAttendee = function (attendee) {
         // Don't add attendee if already in list.
         if (attendees.indexOf(attendee) === -1) {
             attendees.push(attendee);
         }
     };
 
-    agendaService.removeAttendee = function(id) {
+    agendaService.removeAttendee = function (id) {
         for (var i = 0; i < attendees.length; i++) {
             if (attendees[i].id === id) {
                 attendees.splice(i, 1);
@@ -56,25 +73,36 @@ analytics.factory('agendaService', function ($http, moment) {
         }
     };
 
-    agendaService.getAttendees = function() {
+    agendaService.getAttendees = function () {
         return attendees;
     };
 
-    agendaService.changeStartTime = function(hour, minute) {
+    agendaService.getAttendeeEmails = function() {
+        var emailList = [];
+        for (i = 0; i < attendees.length; i++) {
+            emailList.push({'email' : attendees[i].email});
+        }
+        return emailList;
+    };
+
+    agendaService.changeStartTime = function (hour, minute) {
         var duration = agendaService.getTotalTime();
         date.hour(hour);
         date.minute(minute);
         endTime = date.clone();
         endTime.add(duration);
+        console.log("change time");
+        console.log(date);
+        console.log(endTime);
     };
 
-    agendaService.getTotalTime = function() {
+    agendaService.getTotalTime = function () {
         return moment.duration(moment(endTime).diff(moment(date)));
     };
 
     // For example, here you can get all activities for a certain agenda_id or user_id.
     // This is put into the parameter and sent as params to the backend.
-    agendaService.getActivities = function(activityData) {
+    agendaService.getActivities = function (activityData) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
@@ -90,7 +118,7 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     // Resets the state of the service.
-    agendaService.resetState = function() {
+    agendaService.resetState = function () {
         startHour = "08";
         startMinute = "00";
         date = moment(startHour + ":" + startMinute, 'HH:mm');
@@ -100,7 +128,7 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     // Add a new activity
-    agendaService.newActivity = function(activityName, duration){
+    agendaService.newActivity = function (activityName, duration) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
@@ -115,12 +143,12 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     // Add a new activity
-    agendaService.updateActivity = function(updatedName, duration, id){
+    agendaService.updateActivity = function (updatedName, duration, id) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
             },
-            url: apiUrl + "/activities/"+ id,
+            url: apiUrl + "/activities/" + id,
             method: "PUT",
             data: {
                 name: updatedName,
@@ -129,7 +157,7 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    agendaService.removeActivity = function(id){
+    agendaService.removeActivity = function (id) {
         return $http.delete(apiUrl + '/activities/' + id)
     };
 

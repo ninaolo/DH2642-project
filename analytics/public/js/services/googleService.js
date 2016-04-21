@@ -35,6 +35,7 @@ analytics.factory('googleService', function ($http, moment) {
     googleService.createCalendarEvent = function(event, callbackFunction) {
         var request = gapi.client.calendar.events.insert({
             'calendarId': 'primary',
+            'sendNotifications': true,
             'resource': event
         });
 

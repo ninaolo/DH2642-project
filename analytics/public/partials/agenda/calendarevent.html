@@ -45,20 +45,18 @@
 
                 <div class="form-group buttons">
                     <a href="#/agenda/new" class="btn btn-primary"><< Edit agenda</a>
-                    <a href="#/agenda/google" class="btn btn-primary">Create event >></a>
+                    <a href="#/agenda/google" class="btn btn-primary" ng-click="setNameAndDescription()">Create event >></a>
                 </div>
 
             </form>
         </div>
     </div>
 
-    <div class="col-md-2 col-md-offset-1" id="details">
-        <h4>Details</h4>
+    <div class="col-md-2 col-md-offset-1">
+        <h4>Your event</h4>
+        <p>Name: {{name}}</p>
         <p>Start time: {{getDate() | amDateFormat:'HH:mm'}} </p>
-        <p>End time: {{getEndTime() | amDateFormat:'HH:mm'}}
-        <p>
-        <hr>
-        <p>Total length: {{getEndTime() | amDifference : getDate() : 'minutes'}} min</p>
+        <p>End time: {{getEndTime() | amDateFormat:'HH:mm'}}</p>
     </div>
 
 </div>
