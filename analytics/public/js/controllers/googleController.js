@@ -1,9 +1,7 @@
 analytics.controller('googleController', ['$scope', 'moment', 'agendaService', 'googleService',
     function ($scope, moment, agendaService, googleService) {
-
-        // If it starts with false the google authorize button will blink quickly which is just ugly.
-        // The correct value is set later.
-        $scope.authOkay = true;
+        
+        $scope.authOkay = false;
         $scope.event = {};
         $scope.eventCreated = false;
 
@@ -14,12 +12,16 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
         $scope.handleAuthResult = function(authResult) {
             if (authResult && !authResult.error) {
                 console.log("success");
-                $scope.authOkay = true;
+                $scope.$apply(function() {
+                    $scope.authOkay = true;
+                });
                 $scope.createCalendarEvent();
                 //$scope.listUpcomingEvents();
             } else {
                 console.log("fail");
-                $scope.authOkay = false;
+                $scope.$apply(function() {
+                    $scope.authOkay = false;
+                });
             }
         };
 
@@ -75,10 +77,6 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
 
             googleService.createCalendarEvent(event, $scope.handleCalendarEvent);
         };
-
-        $scope.$watch('eventCreated', function() {
-            console.log('changed to: ' + $scope.eventCreated);
-        });
 
         $scope.handleCalendarEvent = function(createdEvent) {
             if (createdEvent !== undefined) {
