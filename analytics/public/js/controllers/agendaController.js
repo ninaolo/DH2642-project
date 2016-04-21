@@ -83,9 +83,15 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
         $scope.modalUpdate = function (size,activity) {
             alert(activity.id);
+            $scope.selectedActivity = activity;
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/editActivity.html',
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                },
                 controller: function ($scope, $uibModalInstance, activity) {
                     $scope.activity = activity;
 
@@ -98,18 +104,13 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     };
 
                     $scope.editActivity = function() {
-                        alert(this.duration);
-                        alert(this.name);
+                       // alert(this.duration);
+                        //alert(this.name);
                         alert("Update activity");
-                        agendaService.updateActivity(this.name,this.duration,activity.id);
+                        agendaService.updateActivity(this.name,this.duration,$scope.activity.id);
                     };
                 },
-                size: size,
-                resolve: {
-                    activity: function () {
-                        return $scope.selectedActivity;
-                    }
-                }
+                size: size
             });
 
             modalInstance.result.then(function (selectedItem) {
