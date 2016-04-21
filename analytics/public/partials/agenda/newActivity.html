@@ -1,0 +1,31 @@
+<section data-ng-controller="agendaController">
+    <div class="modal-header">
+        <h3 class="modal-title">Create activity</h3>
+    </div>
+    <div class="modal-body">
+        <fieldset>
+            <form>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input name="activity" type="txt" data-ng-model="name" placeholder="Name of activity"
+                           class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Time</label>
+                    <select ng-options="minute as minute for minute in range(0, 60)" data-ng-model="time"></select>
+                </div>
+
+
+
+            </form>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <!--<input type="submit" name="editActivity" value="Update activity" class="btn btn-primary btn-block">-->
+        <button class="btn btn-success" type="button" ng-click="createActivity();ok()">Create activity</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+
+</section>
