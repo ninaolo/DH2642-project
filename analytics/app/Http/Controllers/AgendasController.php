@@ -36,6 +36,7 @@ class AgendasController extends Controller
   // TODO: check input.
   public function update($id, Request $request)
   {
+    dd($request);
     $agenda = Agenda::findOrFail($id);
     $agenda->update($request->toArray());
     if($agenda->update($request->toArray())) {
