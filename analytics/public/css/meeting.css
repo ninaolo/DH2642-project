@@ -40,7 +40,7 @@
     margin-bottom: 30px;
 }
 
-.search-link:hover, .delete-cross:hover {
+.search-link:hover, .delete-cross:hover, .edit:hover {
     color: #DF9F39;
     cursor: pointer;
 }
