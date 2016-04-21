@@ -25,8 +25,8 @@ class ActivitiesController extends Controller
     if (
               strlen($request->input('name')) <= 30 &&
               strlen($request->input('name')) >= 2 &&
-              strlen($request->input('description')) <= 100 &&
-              strlen($request->input('description')) >= 2
+              strlen($request->input('duration')) <= 100 &&
+              strlen($request->input('duration')) >= 2
           ) {
         Activity::create($request);
         return response()->json('', 200);
