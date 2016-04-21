@@ -6,7 +6,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.attendees = [];
         $scope.name = "";
         $scope.description = "";
-        $scope.day = agendaService.getDay();
+        $scope.date = agendaService.getDate();
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -30,7 +30,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return rangeList;
         };
 
-        $scope.setNameAndDescription = function() {
+        $scope.setNameAndDescription = function () {
             agendaService.setNameAndDescription($scope.name, $scope.description);
         };
 
@@ -80,15 +80,15 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.addAttendee(user);
         };
 
-        $scope.getAttendees = function() {
+        $scope.getAttendees = function () {
             return agendaService.getAttendees();
         };
 
-        $scope.removeAttendee = function(id) {
+        $scope.removeAttendee = function (id) {
             agendaService.removeAttendee(id);
         };
 
-        $scope.modalUpdate = function (size,activity) {
+        $scope.modalUpdate = function (size, activity) {
             alert(activity.id);
             $scope.selectedActivity = activity;
             var modalInstance = $uibModal.open({
@@ -110,11 +110,11 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.editActivity = function() {
-                       // alert(this.duration);
+                    $scope.editActivity = function () {
+                        // alert(this.duration);
                         //alert(this.name);
                         alert("Update activity");
-                        agendaService.updateActivity(this.name,this.duration,$scope.activity.id);
+                        agendaService.updateActivity(this.name, this.duration, $scope.activity.id);
                     };
                 },
                 size: size
@@ -141,11 +141,11 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.createActivity = function() {
+                    $scope.createActivity = function () {
                         alert(this.duration);
                         alert(this.name);
                         alert("create new activity");
-                        agendaService.newActivity(this.name,this.duration);
+                        agendaService.newActivity(this.name, this.duration);
                     };
 
                 },
@@ -164,7 +164,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             });
         };
 
-        $scope.Delete = function (size,activity) {
+        $scope.Delete = function (size, activity) {
             alert(activity.id);
             $scope.selectedActivity = activity;
             var modalInstance = $uibModal.open({
@@ -186,21 +186,22 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.editActivity = function() {
+                    $scope.editActivity = function () {
                         alert("delete");
                         agendaService.removeActivity($scope.activity.id);
                     };
                 },
                 size: size
             });
+        };
 
 
-        $scope.modalDelete= function (size, activity) {
+        $scope.modalDelete = function (size, activity) {
             alert(activity.id);
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/deleteActivity.html',
-                controller: function ($scope, $uibModalInstance,activity) {
+                controller: function ($scope, $uibModalInstance, activity) {
 
                     $scope.ok = function () {
                         $uibModalInstance.close($scope.activity);
@@ -210,7 +211,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.deleteActivity = function() {
+                    $scope.deleteActivity = function () {
                         alert("delete");
                         agendaService.removeActivity($scope.activity.id);
                     };
@@ -231,8 +232,8 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             });
         };
 
-        $scope.$watch('day', function () {
-            agendaService.setDay($scope.day);
+        $scope.$watch('date', function () {
+            agendaService.changeDate(moment($scope.date));
         });
 
     }]);

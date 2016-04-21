@@ -10,7 +10,6 @@ analytics.factory('agendaService', function ($http, moment) {
     var attendees;
     var name;
     var description;
-    var day;
 
     agendaService.getStartHour = function () {
         return startHour;
@@ -24,27 +23,22 @@ analytics.factory('agendaService', function ($http, moment) {
         return date;
     };
 
-    agendaService.setDate = function (newDate) {
-        date = newDate;
-        console.log(date);
+    agendaService.changeDate = function (newDate) {
+        console.log("before: " + date.toISOString());
+        var duration = agendaService.getTotalTime();
+        date.year(newDate.get('year')).month(newDate.get('month')).date(newDate.get('date'));
+        endTime = date.clone();
+        endTime.add(duration);
+        console.log("after: " + date.toISOString());
+    };
+
+    agendaService.setEndTime = function (newTime) {
+        endTime = newTime;
     };
 
     agendaService.getEndTime = function () {
         return endTime;
     };
-
-    agendaService.setEndTime = function (newTime) {
-        endTime = newTime;
-        console.log(endTime);
-    };
-
-    agendaService.getDay = function () {
-        return day;
-    }
-
-    agendaService.setDay = function (newDay) {
-        day = newDay;
-    }
 
     agendaService.getName = function () {
         return name;
@@ -100,9 +94,6 @@ analytics.factory('agendaService', function ($http, moment) {
         date.minute(minute);
         endTime = date.clone();
         endTime.add(duration);
-        console.log("change time");
-        console.log(date);
-        console.log(endTime);
     };
 
     agendaService.getTotalTime = function () {
