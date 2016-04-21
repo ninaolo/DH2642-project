@@ -6,6 +6,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.attendees = [];
         $scope.name = "";
         $scope.description = "";
+        $scope.day = agendaService.getDay();
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -163,6 +164,37 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             });
         };
 
+        $scope.Delete = function (size,activity) {
+            alert(activity.id);
+            $scope.selectedActivity = activity;
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/agenda/deleteActivity.html',
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                },
+                controller: function ($scope, $uibModalInstance, activity) {
+                    $scope.activity = activity;
+
+                    $scope.ok = function () {
+                        $uibModalInstance.close($scope.activity);
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                    $scope.editActivity = function() {
+                        alert("delete");
+                        agendaService.removeActivity($scope.activity.id);
+                    };
+                },
+                size: size
+            });
+
+
         $scope.modalDelete= function (size, activity) {
             alert(activity.id);
             var modalInstance = $uibModal.open({
@@ -198,5 +230,9 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+
+        $scope.$watch('day', function () {
+            agendaService.setDay($scope.day);
+        });
 
     }]);

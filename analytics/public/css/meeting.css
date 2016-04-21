@@ -45,3 +45,14 @@
     cursor: pointer;
 }
 
+/*Use to set size of datepicker*/
+.custom-size .btn-sm {
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.ui-datepicker .ui-datepicker-current-day {
+    background-color: #ff9933;
+}

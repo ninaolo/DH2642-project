@@ -10,6 +10,7 @@ analytics.factory('agendaService', function ($http, moment) {
     var attendees;
     var name;
     var description;
+    var day;
 
     agendaService.getStartHour = function () {
         return startHour;
@@ -36,6 +37,14 @@ analytics.factory('agendaService', function ($http, moment) {
         endTime = newTime;
         console.log(endTime);
     };
+
+    agendaService.getDay = function () {
+        return day;
+    }
+
+    agendaService.setDay = function (newDay) {
+        day = newDay;
+    }
 
     agendaService.getName = function () {
         return name;
@@ -125,6 +134,7 @@ analytics.factory('agendaService', function ($http, moment) {
         endTime = date.clone();
         agenda = [];
         attendees = [];
+        day = Date.now();
     };
 
     // Add a new activity
