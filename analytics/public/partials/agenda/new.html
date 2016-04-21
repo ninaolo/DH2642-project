@@ -18,7 +18,7 @@
         <div id="builder" class="row">
 
             <div class="col-md-6">
-                <a href="" ng-click="newActivity()"><h4><i class="fa fa-btn fa-plus"></i> New activity</h4></a>
+                <a href="" ng-click="modalNew('sm')"><h4><i class="fa fa-btn fa-plus"></i> New activity</h4></a>
                 <p>These are your parked activities.</p>
                 <div id="activities">
                     <div class="row activity" ng-repeat="activity in activities" index="{{$index}}" draggable>
@@ -30,11 +30,12 @@
                                 {{activity.name}}
                             </button>
                         </div>
-					<div>
-                        <a ng-click="modalUpdate('sm',activity)">
+                        <div class="edit" ng-click="modalUpdate('sm',activity)">
                             <i class="glyphicon glyphicon-pencil"></i>
-                        </a>
-                    </div>
+                        </div>
+                        <div class="edit" ng-click="modalDelete('sm',activity)">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </div>
                     </div>
                 </div>
 

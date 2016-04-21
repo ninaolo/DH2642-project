@@ -99,6 +99,40 @@ analytics.factory('agendaService', function ($http, moment) {
         attendees = [];
     };
 
+    // Add a new activity
+    agendaService.newActivity = function(activityName, duration){
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/activities",
+            method: "POST",
+            data: {
+                name: activityName,
+                description: duration
+            }
+        });
+    };
+
+    // Add a new activity
+    agendaService.updateActivity = function(updatedName, duration, id){
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/activities/"+ id,
+            method: "PUT",
+            data: {
+                name: updatedName,
+                description: duration
+            }
+        });
+    };
+
+    agendaService.removeActivity = function(id){
+        return $http.delete(apiUrl + '/activities/' + id)
+    };
+
     return agendaService;
 
 });
