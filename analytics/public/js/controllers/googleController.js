@@ -11,14 +11,11 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
 
         $scope.handleAuthResult = function(authResult) {
             if (authResult && !authResult.error) {
-                console.log("success");
                 $scope.$apply(function() {
                     $scope.authOkay = true;
                 });
                 $scope.createCalendarEvent();
-                //$scope.listUpcomingEvents();
             } else {
-                console.log("fail");
                 $scope.$apply(function() {
                     $scope.authOkay = false;
                 });
@@ -28,27 +25,6 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
         $scope.handleAuthClick = function() {
             googleService.authorize(false, $scope.handleAuthResult);
             return false;
-        };
-
-        $scope.listUpcomingEvents = function() {
-            googleService.listUpcomingEvents($scope.handleUpcomingEvents);
-        };
-
-        $scope.handleUpcomingEvents = function(events) {
-            console.log('Upcoming events:');
-
-            if (events.length > 0) {
-                for (i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var when = event.start.dateTime;
-                    if (!when) {
-                        when = event.start.date;
-                    }
-                    console.log(event.summary + ' (' + when + ')')
-                }
-            } else {
-                console.log('No upcoming events found.');
-            }
         };
 
         $scope.createCalendarEvent = function() {
@@ -63,7 +39,6 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
                 },
                 'attendees': agendaService.getAttendeeEmails()
             };
-
             googleService.createCalendarEvent(event, $scope.handleCalendarEvent);
         };
 
@@ -75,6 +50,7 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
                     $scope.eventCreated = true;
                     $scope.event = createdEvent;
                 });
+                agendaService.resetState();
             } else {
                 $scope.$apply(function() {
                     $scope.eventCreated = false;

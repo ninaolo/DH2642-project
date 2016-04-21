@@ -145,6 +145,9 @@ analytics.factory('agendaService', function ($http, moment) {
 
     // Add a new activity
     agendaService.updateActivity = function (updatedName, duration, id) {
+        console.log(updatedName);
+        console.log(duration);
+        console.log(id);
         return $http({
             headers: {
                 "Content-Type": "application/json"
