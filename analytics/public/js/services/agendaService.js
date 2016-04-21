@@ -99,6 +99,11 @@ analytics.factory('agendaService', function ($http, moment) {
         attendees = [];
     };
 
+    // Add a new activity
+    agendaService.newActivity = function(name, duration){
+
+    }
+
     return agendaService;
 
 });

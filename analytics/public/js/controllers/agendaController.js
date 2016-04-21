@@ -84,9 +84,59 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.modalUpdate = function (size) {
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
-                templateUrl: 'partials/agenda/modal.html',
+                templateUrl: 'partials/agenda/editActivity.html',
                 controller: function ($scope, $uibModalInstance, activity) {
                     $scope.activity = activity;
+
+                    $scope.ok = function () {
+                        $uibModalInstance.close($scope.activity);
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                    $scope.editActivity = function() {
+                        alert(this.duration);
+                        alert(this.name);
+                        alert("Update activity");
+                    };
+                },
+                size: size,
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.modalNew = function (size) {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/agenda/newActivity.html',
+                controller: function ($scope, $uibModalInstance) {
+
+                    $scope.ok = function () {
+                        $uibModalInstance.close($scope.activity);
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                    $scope.createActivity = function() {
+                        alert(this.duration);
+                        alert(this.name);
+                        alert("create new update");
+                    };
+
                 },
                 size: size,
                 resolve: {
