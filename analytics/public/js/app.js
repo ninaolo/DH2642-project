@@ -30,23 +30,26 @@ analytics.config(['$routeProvider',
         }).when('/agenda/invite', {
             templateUrl: 'partials/agenda/calendarevent.html',
             controller: 'agendaController'
+        }).when('/agenda/google', {
+            templateUrl: 'partials/agenda/google.html',
+            controller: 'googleController'
         }).otherwise({
             redirectTo: '/login'
         });
     }]);
 
-analytics.run(function($rootScope, $window, userService, agendaService) {
+analytics.run(function ($rootScope, $window, userService, agendaService) {
 
     // Check if user is logged in and set userService state variables.
     userService.checkLogin();
 
-    $rootScope.redirectNotFound = function() {
+    $rootScope.redirectNotFound = function () {
         $rootScope.header = "Oops!";
         $rootScope.info = "An error occurred. The page you entered does not exist.";
         $window.location.href = "#/info";
     };
 
-    $rootScope.addScrollMagic = function(id) {
+    $rootScope.addScrollMagic = function (id) {
         console.log(id);
         var controller = new ScrollMagic.Controller();
         var scene = new ScrollMagic.Scene({
@@ -61,6 +64,21 @@ analytics.run(function($rootScope, $window, userService, agendaService) {
     agendaService.resetState();
 
 });
+
+function initGapi() {
+    var apisToLoad = 1; // must match nr of calls to gapi.client.load()
+    var googleCallback = function () {
+        if (--apisToLoad == 0) {
+            // Manual bootstraping of the application, since gapi needs to load first
+            // Note: there are many ways to solve the problem that gapi becomes undefined since it loads after
+            // AngularJs, but this is one way to solve the problem and bootstrap the app _after_ gapi has loaded.
+            var $injector = angular.bootstrap(document, ["analytics"]);
+            console.log("Completed bootstrap of Meeter.");
+        }
+    };
+    //gapi.client.setApiKey(CLIENT_ID);
+    gapi.client.load("calendar", "v3", googleCallback);
+}
 
 // For handling dates.
 analytics.constant("moment", moment);

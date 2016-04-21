@@ -1,0 +1,38 @@
+<link href="css/google.css" rel="stylesheet">
+
+<div class="container-fluid view-fade-in" ng-init="checkAuth()">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="row" ng-hide="authOkay">
+            <h4>Authorize access to Google Calendar</h4>
+            <p>Oops! It seems like you haven't given us permission to access your Google Calendar.<br>
+                Please press the button below so we can create a Google Calendar event.</p>
+            <button class="btn btn-primary" id="authorize-button" ng-click="handleAuthClick()">
+                Authorize
+            </button>
+        </div>
+
+        <div class="row" ng-hide="eventCreated">
+            <p>Creating a Google Calendar event...</p>
+        </div>
+
+        <div ng-show="eventCreated && authOkay">
+            <h4>Your Google Calendar event was successfully created</h4>
+            <p>You are now done creating the meeting agenda here on meeter as well as the Google Calendar event.</p>
+            <p>Here is the link to your event on Google:</p>
+            <a class="google-link" ng-href="{{event.htmlLink}}">{{event.htmlLink}}</a>
+
+            <div class="event panel panel-default">
+                <div class="panel-body">
+                    <p>{{event.summary}}</p>
+                </div>
+                <div class="panel-footer">
+                    <p>Description: {{event.description}}</p>
+                    <p>Start: {{event.start.dateTime}}</p>
+                    <p>End: {{event.end.dateTime}}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="analytics">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,6 +107,7 @@
     <script src="js/controllers/profileController.js"></script>
     <script src="js/controllers/colleaguesController.js"></script>
     <script src="js/controllers/agendaController.js"></script>
+    <script src="js/controllers/googleController.js"></script>
 
     <!-- Directives -->
     <script src="js/directives/droppable.js"></script>
@@ -115,6 +116,10 @@
     <!-- Services -->
     <script src="js/services/userService.js"></script>
     <script src="js/services/agendaService.js"></script>
+    <script src="js/services/googleService.js"></script>
+
+    <!-- To initialize Google Client -->
+    <script src="https://apis.google.com/js/client.js?onload=initGapi"></script>
 
     </body>
 

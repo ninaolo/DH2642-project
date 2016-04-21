@@ -1,0 +1,21 @@
+.google-link {
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    letter-spacing: 0;
+    text-transform: lowercase;
+    font-style: italic;
+}
+
+.event {
+    margin: 50px;
+}
+
+.event > .panel-body {
+    background-color: #DF9F39;
+    color: white;
+    font-weight: bold;
+}
+
+.event > .panel-footer {
+    background-color: #f5f5f5;
+}
