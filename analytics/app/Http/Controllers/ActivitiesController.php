@@ -39,7 +39,12 @@ class ActivitiesController extends Controller
   public function update($id, Request $request)
   {
     $activity = Activity::findOrFail($id);
-    $activity->update($request)->save();
+    $activity->update($request->toArray());
+    if($activity->update($request->toArray())) {
+      return response()->json('', 200);
+    } else {
+      return response()->json('', 400);
+    }
   }
 
   public function destroy($id)

@@ -37,7 +37,12 @@ class AgendasController extends Controller
   public function update($id, Request $request)
   {
     $agenda = Agenda::findOrFail($id);
-    $agenda->update($request)->save();
+    $agenda->update($request->toArray());
+    if($agenda->update($request->toArray())) {
+      return response()->json('', 200);
+    } else {
+      return response()->json('', 400);
+    }
   }
 
   public function destroy($id)

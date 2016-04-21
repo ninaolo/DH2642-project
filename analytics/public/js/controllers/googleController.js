@@ -1,6 +1,6 @@
 analytics.controller('googleController', ['$scope', 'moment', 'agendaService', 'googleService',
     function ($scope, moment, agendaService, googleService) {
-        
+
         $scope.authOkay = false;
         $scope.event = {};
         $scope.eventCreated = false;
