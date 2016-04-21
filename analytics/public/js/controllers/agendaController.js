@@ -135,8 +135,43 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     $scope.createActivity = function() {
                         alert(this.duration);
                         alert(this.name);
-                        alert("create new update");
+                        alert("create new activity");
                         agendaService.newActivity(this.name,this.duration);
+                    };
+
+                },
+                size: size,
+                resolve: {
+                    activity: function () {
+                        return $scope.selectedActivity;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.modalDelete= function (size, activity) {
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'partials/agenda/deleteActivity.html',
+                controller: function ($scope, $uibModalInstance) {
+
+                    $scope.ok = function () {
+                        $uibModalInstance.close($scope.activity);
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                    $scope.deleteActivity = function() {
+                        alert("delete");
+                        agendaService.removeActivity($scope.activity.id);
                     };
 
                 },
