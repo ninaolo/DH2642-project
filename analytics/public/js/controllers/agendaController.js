@@ -62,11 +62,11 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return agendaTime;
         };
 
-        $scope.handleDrop = function (id, isTrash) {
+        $scope.handleDrop = function (activity, isTrash) {
             if (isTrash) {
-                $scope.modalDelete('sm', $scope.activities[id]);
+                $scope.modalDelete('sm', activity);
             } else {
-                $scope.addToAgenda($scope.activities[id]);
+                $scope.addToAgenda(activity);
             }
         };
 

@@ -35,7 +35,7 @@
                                 {{activity.duration}} min
                             </div>
                             <div class="col-md-8 no-margin">
-                                <button class="btn btn-warning activity" index="{{$index}}" draggable>
+                                <button class="btn btn-warning activity" activity=activity draggable>
                                     {{activity.name}}
                                 </button>
                             </div>
@@ -54,14 +54,14 @@
                     <h4>Agenda</h4>
                     <p>Your meeting agenda - drop activities here!</p>
                 </div>
-                <div class="row" droppable handle="handleDrop(id)">
+                <div class="row" droppable handle="handleDrop(activity)">
                     <div class="col-md-12" id="agenda">
                         <div class="row" ng-repeat="activity in getAgenda() track by $index">
                             <div class="col-md-3 minutes">
                                 {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
                             </div>
                             <div class="col-md-9 no-margin">
-                                <button class="btn btn-warning" item="item">
+                                <button class="btn btn-warning">
                                     {{activity.name}}
                                 </button>
                             </div>

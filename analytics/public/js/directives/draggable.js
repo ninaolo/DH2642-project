@@ -3,21 +3,18 @@ analytics.directive('draggable', function () {
     return {
         restrict: 'A',
         scope: {
-            'index': '@'
+            'activity' : '='
         },
 
         link: function (scope, element) {
             var el = element[0];
             el.draggable = true;
 
-            el.on('dragstart', function (e) {
-                // Send the id of the activity which was moved so that the scope can handle the move.
-                e.dataTransfer.setData("text", scope.index);
-
+            el.addEventListener('dragstart', function (e) {
+                e.dataTransfer.setData("text", JSON.stringify(scope.activity));
             }, false);
 
-            el.on('dragend', function (e) {
-                this.classList.remove('drag');
+            el.addEventListener('dragend', function (e) {
                 return false;
             }, false);
         }
