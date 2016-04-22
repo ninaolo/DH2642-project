@@ -113,6 +113,19 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
+    // For example, here you can get all agendas for a certain user_id.
+    // This is put into the parameter and sent as params to the backend.
+    agendaService.getAgendas = function (agendaData) {
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/agendas",
+            method: "GET",
+            params: agendaData
+        });
+    };
+
     agendaService.getActivity = function (id) {
         return $http.get(apiUrl + '/activities/' + id);
     };
