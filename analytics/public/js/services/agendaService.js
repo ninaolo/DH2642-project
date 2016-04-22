@@ -143,17 +143,14 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    agendaService.updateActivity = function (updatedName, newDuration, id) {
+    agendaService.updateActivity = function (newData, id) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
             },
             url: apiUrl + "/activities/" + id,
             method: "PUT",
-            data: {
-                name: updatedName,
-                duration: newDuration
-            }
+            data: newData
         });
     };
 

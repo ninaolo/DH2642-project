@@ -22,8 +22,9 @@ analytics.directive('droppable', function () {
             element.on('drop', function (e) {
                 e.preventDefault();
                 var activityId = e.originalEvent.dataTransfer.getData("text");
+                console.log(e);
 
-                // Here we call the handleDrop() function in the controller. The apply() is necessary for updating.
+                // Here we call the provided handle function. The apply() is necessary for updating.
                 scope.handle({id: activityId});
                 scope.$apply();
 
