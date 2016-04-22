@@ -1,5 +1,18 @@
 <link rel="stylesheet" href="css/profile.css">
 
+
+<style>
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+    }
+</style>
 <div class="container-fluid view-fade-in">
 
     <div class="row">
@@ -30,8 +43,9 @@
     </div>
 
     <div class="row meetings">
-        Coming soon...
-        <div ui-calendar ng-model="eventSources"></div>
+        <div class="col-md-6 col-md-offset-3">
+            <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+        </div>
     </div>
 
 </div>
