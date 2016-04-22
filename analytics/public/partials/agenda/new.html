@@ -29,13 +29,14 @@
                     <p>These are your parked activities.</p>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" id="activities">
+                    <div class="col-md-12" id="activities" droppable handle="handleActivitiesDrop(activity, index)">
                         <div class="row" ng-repeat="activity in activities">
                             <div class="col-md-3 minutes">
                                 {{activity.duration}} min
                             </div>
-                            <div class="col-md-8 no-margin">
-                                <button class="btn btn-warning activity" activity=activity draggable>
+                            <div class="col-md-8 no-margin" data-index="{{$index}}">
+                                <button class="btn btn-warning activity" data-index="{{$index}}" activity=activity
+                                        draggable>
                                     {{activity.name}}
                                 </button>
                             </div>
@@ -54,14 +55,14 @@
                     <h4>Agenda</h4>
                     <p>Your meeting agenda - drop activities here!</p>
                 </div>
-                <div class="row" droppable handle="handleDrop(activity)">
-                    <div class="col-md-12" id="agenda">
+                <div class="row">
+                    <div class="col-md-12" id="agenda" droppable handle="handleAgendaDrop(activity, index)">
                         <div class="row" ng-repeat="activity in getAgenda() track by $index">
                             <div class="col-md-3 minutes">
                                 {{ getAgendaTime($index) | amDateFormat:'HH:mm'}}
                             </div>
-                            <div class="col-md-9 no-margin">
-                                <button class="btn btn-warning">
+                            <div class="col-md-9 no-margin" data-index="{{$index}}">
+                                <button class="btn btn-warning" data-index="{{$index}}" activity=activity draggable>
                                     {{activity.name}}
                                 </button>
                             </div>
@@ -85,7 +86,7 @@
         <hr id="line">
         <p>Total length: {{getEndTime() | amDifference : getDate() : 'minutes'}} min</p>
 
-        <div id="trashcan" droppable handle="handleDrop(id, true)"><i class="fa fa-btn fa-trash"></i></div>
+        <div id="trashcan" droppable handle="handleTrash(activity)"><i class="fa fa-btn fa-trash"></i></div>
     </div>
 
 </div>

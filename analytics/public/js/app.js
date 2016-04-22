@@ -1,5 +1,5 @@
 var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap', 'ui.calendar']);
- ''
+
 analytics.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/', {
@@ -82,3 +82,24 @@ function initGapi() {
 
 // For handling dates.
 analytics.constant("moment", moment);
+
+// A little helper function for finding an id in a list of JSON objects.
+// This requires the JSON to have the property 'id'.
+var idInList = function (id, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id === id) {
+            return true;
+        }
+    }
+    return false;
+};
+
+// A little helper function for removing an entry with an id in a list of JSON objects.
+// This requires the JSON to have the property 'id'.
+var removeFromList = function(id, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id === id) {
+            list.splice(i, 1);
+        }
+    }
+};

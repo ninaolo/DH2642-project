@@ -57,23 +57,36 @@ analytics.factory('agendaService', function ($http, moment) {
         return agenda;
     };
 
-    agendaService.addToAgenda = function (activity) {
-        agenda.push(activity);
+    agendaService.addToAgenda = function (activity, index) {
+        if (!idInList(activity.id, agenda)) {
+            if(index) {
+                agenda.splice(index, 0, activity);
+            } else {
+                agenda.push(activity);
+            }
+        } else {
+            removeFromList(activity.id, agenda);
+            if (index) {
+                agenda.splice(index, 0, activity);
+            } else {
+                agenda.push(activity);
+            }
+        }
+    };
+
+    agendaService.removeFromAgenda = function (id) {
+        removeFromList(id, agenda);
     };
 
     agendaService.addAttendee = function (attendee) {
         // Don't add attendee if already in list.
-        if (attendees.indexOf(attendee) === -1) {
+        if(!idInList(attendee.id, attendees)) {
             attendees.push(attendee);
         }
     };
 
     agendaService.removeAttendee = function (id) {
-        for (var i = 0; i < attendees.length; i++) {
-            if (attendees[i].id === id) {
-                attendees.splice(i, 1);
-            }
-        }
+        removeFromList(id, attendees);
     };
 
     agendaService.getAttendees = function () {

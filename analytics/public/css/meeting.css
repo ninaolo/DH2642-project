@@ -3,6 +3,14 @@
     height: 250px;
 }
 
+.drag-over {
+    border: 0.5px dashed #000;
+}
+
+.insert {
+    margin-top: 20px;
+}
+
 #line {
     width: 120px;
 }

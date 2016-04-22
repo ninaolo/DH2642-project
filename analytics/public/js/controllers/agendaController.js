@@ -13,9 +13,10 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             $scope.users = response;
         });
 
-        // Get the logged in user's parked activities.
+        // Get the logged in user's parked (unused) activities.
         agendaService.getActivities({
-            'user_id': userService.getLoggedUser().id
+            'user_id': userService.getLoggedUser().id,
+            'agenda_id': 0
         }).success(function (response) {
             $scope.activities = response;
         });
@@ -62,17 +63,33 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return agendaTime;
         };
 
-        $scope.handleDrop = function (activity, isTrash) {
-            if (isTrash) {
-                $scope.modalDelete('sm', activity);
+        $scope.handleAgendaDrop = function (activity, index) {
+            agendaService.addToAgenda(activity, index);
+            agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
+            removeFromList(activity.id, $scope.activities);
+        };
+
+        $scope.handleActivitiesDrop = function (activity, index) {
+            agendaService.setEndTime(agendaService.getEndTime().subtract(activity.duration, 'minutes'));
+            agendaService.removeFromAgenda(activity.id);
+            if (!idInList(activity.id, $scope.activities)) {
+                if(index) {
+                    $scope.activities.splice(index, 0, activity);
+                } else {
+                    $scope.activities.push(activity);
+                }
             } else {
-                $scope.addToAgenda(activity);
+                removeFromList(activity.id, $scope.activities);
+                if (index) {
+                    $scope.activities.splice(index, 0, activity);
+                } else {
+                    $scope.activities.push(activity);
+                }
             }
         };
 
-        $scope.addToAgenda = function (activity) {
-            agendaService.addToAgenda(activity);
-            agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
+        $scope.handleTrash = function (activity) {
+            $scope.modalDelete('sm', activity);
         };
 
         $scope.addAttendee = function (user) {
