@@ -74,6 +74,9 @@
         </div>
     </div>
 
+    <!-- CSS
+    <script src="bower_components/fullcalendar/dist/fullcalendar.css"></script>
+   -->
 
     <!-- jQuery -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -91,6 +94,12 @@
     <!-- Moment.js for dates -->
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
+
+    <!-- Bower packages that have to be under moment and angular -->
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="bower_components/fullcalendar/dist/gcal.js"></script>
 
     <!-- Include ScrollMagic and GSAP -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>

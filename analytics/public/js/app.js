@@ -1,5 +1,5 @@
-var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap']);
-
+var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap', 'ui.calendar']);
+ ''
 analytics.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/', {
