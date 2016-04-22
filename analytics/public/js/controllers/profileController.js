@@ -1,6 +1,7 @@
 analytics.controller("profileController", function ($scope, $routeParams, userService) {
 
     $scope.profileUser = {};
+    $scope.eventSources = [];
 
     // Get profile user.
     userService.getUser($routeParams.id)
@@ -29,6 +30,5 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
     $scope.listUpcomingEvents = function() {
         googleService.listUpcomingEvents($scope.handleUpcomingEvents);
     };
-
 
 });
