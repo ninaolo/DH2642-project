@@ -12,6 +12,10 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
 
     $scope.agendas = {};
 
+    var d = new Date().toISOString().slice(0,10).replace(/-/gi, '');
+    //var today = Date.now().toISOString().slice(0,10).replace(/-/gi, '')
+    $scope.foundAgendas = $scope.dates[d];
+
 
     var mylist = { 20160423: "hej", 20160424: "då"};
 
@@ -125,7 +129,7 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
 
     //change dates to $scope.agendas to get real results
     $scope.clicked = function(inputDate){
-        key = inputDate.toISOString().slice(0,10).replace(/-/gi, '');
+        var key = inputDate.toISOString().slice(0,10).replace(/-/gi, '');
         $scope.foundAgendas = $scope.dates[key];
     };
 
