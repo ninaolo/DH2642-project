@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Agenda;
 use App\Http\Requests;
+use Auth;
 
 class AgendasController extends Controller
 {
@@ -26,7 +27,8 @@ class AgendasController extends Controller
               strlen($request->input('description')) <= 100 &&
               strlen($request->input('description')) >= 2
           ) {
-        Agenda::create($request);
+        $agenda = new Agenda($request->all());
+        Auth::user()->agendas()->save($agenda);
         return response()->json('', 200);
     } else {
         return response()->json('', 400);

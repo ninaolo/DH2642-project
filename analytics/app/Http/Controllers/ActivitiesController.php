@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Activity;
 use App\Http\Requests;
+use Auth;
 
 class ActivitiesController extends Controller
 {
@@ -28,7 +29,9 @@ class ActivitiesController extends Controller
               strlen($request->input('duration')) <= 100 &&
               strlen($request->input('duration')) >= 2
           ) {
-        Activity::create($request->toArray());
+
+        $activity= new Activity($request->all());
+        Auth::user()->activities()->save($activity);
         return response()->json('', 200);
     } else {
         return response()->json('', 400);
