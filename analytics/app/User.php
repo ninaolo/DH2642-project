@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function agendas() {
-      return $this->belongsToMany('App\Agenda', 'a_attendees'); // Many-to-many relationship
+      return $this->belongsToMany('App\Agenda'); // Many-to-many relationship
     }
 
 }
