@@ -6,7 +6,7 @@ analytics.factory('agendaService', function ($http, moment) {
     var startMinute;
     var date;
     var endTime;
-    var agenda;
+    var agenda = [];
     var attendees;
     var name;
     var description;
@@ -46,7 +46,7 @@ analytics.factory('agendaService', function ($http, moment) {
         return description;
     };
 
-    agendaService.setNameAndDescription = function (n, d) {
+    agendaService.setFinalValues = function (n, d) {
         name = n;
         description = d;
     };
@@ -177,6 +177,32 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.deleteActivity = function (id) {
         return $http.delete(apiUrl + '/activities/' + id)
+    };
+
+    agendaService.newAgenda = function() {
+        var attendeeIds = [];
+        for(var i = 0; i < attendees.length; i++) {
+            attendeeIds.push(attendees[i].id);
+        }
+        var activityIds = [];
+        for(var i = 0; i < agenda.length; i++) {
+            activityIds.push(agenda[i].id);
+        }
+        var agendaData = {
+            'description': description,
+            'name': name,
+            'date': date.format("YYYY-MM-DD HH:mm:ss"),
+            'attendees': attendeeIds,
+            'activities': activityIds
+        };
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/agendas",
+            method: "POST",
+            data: agendaData
+        });
     };
 
     return agendaService;

@@ -44,13 +44,14 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
 
         $scope.handleCalendarEvent = function(createdEvent) {
             if (createdEvent !== undefined) {
-                console.log('Event created: ' + createdEvent.htmlLink);
-                console.log(createdEvent);
                 $scope.$apply(function() {
                     $scope.eventCreated = true;
                     $scope.event = createdEvent;
                 });
-                agendaService.resetState();
+                agendaService.newAgenda().success(function() {
+                    agendaService.resetState();
+                });
+
             } else {
                 $scope.$apply(function() {
                     $scope.eventCreated = false;

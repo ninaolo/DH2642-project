@@ -30,9 +30,9 @@ class ActivitiesController extends Controller
               $request->input('duration') >= 1
           ) {
 
-        $activity= new Activity($request->all());
+        $activity = new Activity($request->all());
         Auth::user()->activities()->save($activity);
-        return response()->json('', 200);
+        return response()->json($request->toArray(), 200);
     } else {
         return response()->json($request->toArray(), 400);
     }

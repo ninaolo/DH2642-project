@@ -1,5 +1,5 @@
-analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log', 'loggedUser',
-    function ($scope, moment, agendaService, userService, $uibModal, $log, loggedUser) {
+analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log', 'loggedUser', '$window',
+    function ($scope, moment, agendaService, userService, $uibModal, $log, loggedUser, $window) {
 
         $scope.pickHour = agendaService.getStartHour();
         $scope.pickMinute = agendaService.getStartMinute();
@@ -8,7 +8,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.description = "";
         $scope.date = agendaService.getDate();
         $scope.loggedUser = loggedUser;
-		$scope.minDate = Date.now();
+        $scope.minDate = Date.now();
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -25,8 +25,11 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             });
         };
 
-        $scope.setNameAndDescription = function () {
-            agendaService.setNameAndDescription($scope.name, $scope.description);
+        $scope.setFinalValues = function (isValid) {
+            if (isValid) {
+                agendaService.setFinalValues($scope.name, $scope.description);
+                $window.location.href = "#/agenda/google";
+            }
         };
 
         $scope.getDate = function () {
@@ -102,7 +105,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.removeAttendee(id);
         };
 
-        $scope.createModal = function(partial, activity) {
+        $scope.createModal = function (partial, activity) {
             $scope.selectedActivity = activity;
             $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -113,7 +116,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     activity: function () {
                         return $scope.selectedActivity;
                     },
-                    agendaScope: function() {
+                    agendaScope: function () {
                         return $scope;
                     }
                 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Agenda;
 use App\Http\Requests;
 use Auth;
+use App\Activity;
 
 class AgendasController extends Controller
 {
@@ -28,8 +29,23 @@ class AgendasController extends Controller
               strlen($request->input('description')) <= 100 &&
               strlen($request->input('description')) >= 2
           ) {
-        $agenda = new Agenda($request->all());
-        Auth::user()->agendas()->save($agenda);
+
+        // Create the agenda.
+        $agenda = new Agenda($request->except('attendees', 'activities'));
+        $agenda->save();
+
+        // Add attendees to agenda_user table as many-to-many relationship.
+        foreach ($request->input('attendees') as $attendeeId) {
+          $agenda->users()->attach(1, ['agenda_id' => $agenda->id, 'user_id' => $attendeeId]);
+        }
+
+        // Add agenda_id to a_activities table.
+        foreach ($request->input('activities') as $activityId) {
+          $activity = Activity::find($activityId);
+          $activity->agenda_id = $agenda->id;
+          $activity->save();
+        }
+
         return response()->json('', 200);
     } else {
         return response()->json('', 400);

@@ -19,6 +19,7 @@ class Agenda extends Model
     }
 
     public function users() {
-      return $this->belongsToMany('App\User'); // Many-to-many relationship
+      // Many-to-many relationship
+      return $this->belongsToMany('App\User');
     }
 }
