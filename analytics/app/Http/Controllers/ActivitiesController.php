@@ -26,8 +26,8 @@ class ActivitiesController extends Controller
     if (
               strlen($request->input('name')) <= 30 &&
               strlen($request->input('name')) >= 2 &&
-              strlen($request->input('duration')) <= 100 &&
-              strlen($request->input('duration')) >= 2
+              strlen($request->input('duration')) <= 60 &&
+              strlen($request->input('duration')) >= 1
           ) {
 
         $activity= new Activity($request->all());
