@@ -39,9 +39,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::put('activities/{id}', 'ActivitiesController@update');
         Route::delete('activities/{id}', 'ActivitiesController@destroy');
 
-        // Many-to-many document resource
+        // Many-to-many relational resource for agendas
         Route::get('agendas/{id}/users', function($id) {
           return Agenda::find($id)->users()->get();
+        });
+
+        // Many-to-many relational resource for users
+        Route::get('users/{id}/agendas', function($id) {
+          return User::find($id)->agendas()->get();
         });
 
     });
