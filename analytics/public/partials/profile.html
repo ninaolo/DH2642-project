@@ -1,18 +1,5 @@
 <link rel="stylesheet" href="css/profile.css">
 
-
-<style>
-    .full button span {
-        background-color: limegreen;
-        border-radius: 32px;
-        color: black;
-    }
-    .partially button span {
-        background-color: orange;
-        border-radius: 32px;
-        color: black;
-    }
-</style>
 <div class="container-fluid view-fade-in">
 
     <div class="row">
@@ -44,8 +31,32 @@
 
     <div class="row meetings">
         <div class="col-md-6 col-md-offset-3">
-            <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+            <uib-datepicker ng-model="dt" class="well well-sm" starting-day="1" datepicker-options="options" ng-click="clicked(dt)"></uib-datepicker>
+        </div>
+        <div class="col-md-2 agenda-list">
+           <h5>{{dt | date:'fullDate' }}</h5>
+            <hr>
+            <!--
+            <div ng-repeat="agenda in agendas">
+                <p>Time: {{agenda[0].date.substring('11', '16')}}</p>
+                <p>Description: {{agenda[0].description}}</p>
+            </div>
+
+            *Det vi kommer använda*
+            <ul style="list-style-type:circle">
+            <div ng-repeat="agenda in agendas" ng-click="showAgenda(myAgenda)">
+                    <li>{{agenda.description}}, {{agenda.date.substring('11', '16')}}</li>
+            </div>
+            </ul>
+
+            -->
+            <ul style="list-style-type:circle">
+            <div ng-repeat="myAgenda in foundAgendas" ng-click="showAgenda(myAgenda)">
+                    <li>{{myAgenda.name}}, {{myAgenda.starttime}}</li>
+            </div>
+            </ul>
         </div>
     </div>
+
 
 </div>

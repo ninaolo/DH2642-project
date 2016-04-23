@@ -1,6 +1,19 @@
 analytics.controller("profileController", function ($scope, $routeParams, userService,agendaService) {
 
     $scope.profileUser = {};
+    $scope.dates = { 20160423:
+    [{ name: 'test agenda', reading: 3, starttime: "13.45" },
+        { name: 'test agenda1', reading: 5, starttime: "15:00"},
+        { name: 'test agenda2', reading: 6, starttime: "16:30" }]
+        , 20160424:
+        [{ name: 'my agenda', reading: 3, starttime: "13.45" },
+            { name: 'my agenda2', reading: 6, starttime: "16:30" }]
+    };
+
+    $scope.agendas = {};
+
+
+    var mylist = { 20160423: "hej", 20160424: "då"};
 
     // Get profile user.
     userService.getUser($routeParams.id)
@@ -12,7 +25,17 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
     agendaService.getAgendas({
         'user_id': userService.getLoggedUser().id
     }).success(function (response) {
-        $scope.agendas=response;
+        for(var i = 0; i < response.length; i++){
+            var tempkey = response[i].date;
+            var key = tempkey.substring(0,10).replace(/-/gi, '');
+            if(!(key in $scope.agendas)){
+                $scope.agendas[key] = [];
+                $scope.agendas[key].push(response[i]);
+            } else{
+                $scope.agendas[key].push(response[i]);
+            }
+        }
+        console.log($scope.agendas);
     });
 
     $scope.handleUpcomingEvents = function(events) {
@@ -36,10 +59,14 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
         googleService.listUpcomingEvents($scope.handleUpcomingEvents);
     };
 
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
     $scope.setDate = function(year, month, day) {
         $scope.dt = new Date(year, month, day);
     };
-
 
     $scope.options = {
         customClass: getDayClass,
@@ -93,7 +120,16 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
                 }
             }
         }
-
         return '';
+    }
+
+    //change dates to $scope.agendas to get real results
+    $scope.clicked = function(inputDate){
+        key = inputDate.toISOString().slice(0,10).replace(/-/gi, '');
+        $scope.foundAgendas = $scope.dates[key];
+    };
+
+    $scope.showAgenda = function(agenda){
+        alert("you clicked agenda with id: "+agenda.id);
     }
 });
