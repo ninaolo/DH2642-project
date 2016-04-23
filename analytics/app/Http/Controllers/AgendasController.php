@@ -9,9 +9,10 @@ use Auth;
 
 class AgendasController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    return response(Agenda::all());
+    // Handles requests such as ".../api/agendas?user_id=1"
+    return response(Agenda::where($request->toArray())->get());
   }
 
   public function show($id)
