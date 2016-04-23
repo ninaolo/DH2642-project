@@ -1,30 +1,58 @@
-analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity',
-    function ($scope, $uibModalInstance, agendaService, activity) {
+analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity', 'agendaScope',
+    function ($scope, $uibModalInstance, agendaService, activity, agendaScope) {
         $scope.activity = activity;
+        $scope.wrongValuesMsg = "Please submit all values.";
 
-        $scope.range = function(a, b) {
-            return range(a, b);
+        $scope.minuteRange = function (start, end) {
+            var minutes = [];
+            for (var i = start; i <= end; i++) {
+                minutes.push(i);
+            }
+            return minutes;
         };
 
         $scope.ok = function () {
             $uibModalInstance.close($scope.activity);
+            agendaScope.getActivities();
         };
 
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
+            agendaScope.getActivities();
         };
 
-        $scope.editActivity = function () {
-            agendaService.updateActivity({
-                'name': this.name,
-                'duration': this.duration
-            }, $scope.activity.id);
+        $scope.editActivity = function (isValid) {
+            if(isValid) {
+                agendaService.updateActivity({
+                    'name': $scope.activity.name,
+                    'duration': $scope.activity.duration
+                }, $scope.activity.id).success(function () {
+                    agendaScope.getActivities();
+                });
+                $scope.ok();
+            } else {
+                $scope.error = $scope.wrongValuesMsg;
+            }
         };
 
-        $scope.createActivity = function () {
-            agendaService.newActivity({
-                'name': this.name,
-                'duration': this.duration
+        $scope.createActivity = function (isValid) {
+            if(isValid) {
+                agendaService.newActivity({
+                    'name': $scope.activity.name,
+                    'duration': $scope.activity.duration
+                }).success(function () {
+                    agendaScope.getActivities();
+                });
+                $scope.ok();
+            } else {
+                $scope.error = $scope.wrongValuesMsg;
+            }
+        };
+
+        $scope.deleteActivity = function () {
+            agendaService.deleteActivity($scope.activity.id).success(function() {
+                agendaScope.getActivities();
             });
         };
+
     }]);

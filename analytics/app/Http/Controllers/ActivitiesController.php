@@ -26,15 +26,15 @@ class ActivitiesController extends Controller
     if (
               strlen($request->input('name')) <= 30 &&
               strlen($request->input('name')) >= 2 &&
-              strlen($request->input('duration')) <= 100 &&
-              strlen($request->input('duration')) >= 2
+              $request->input('duration') <= 60 &&
+              $request->input('duration') >= 1
           ) {
 
         $activity= new Activity($request->all());
         Auth::user()->activities()->save($activity);
         return response()->json('', 200);
     } else {
-        return response()->json('', 400);
+        return response()->json($request->toArray(), 400);
     }
   }
 

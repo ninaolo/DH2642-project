@@ -175,7 +175,7 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    agendaService.removeActivity = function (id) {
+    agendaService.deleteActivity = function (id) {
         return $http.delete(apiUrl + '/activities/' + id)
     };
 

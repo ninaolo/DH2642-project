@@ -16,7 +16,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         });
 
         $scope.getActivities = function () {
-            console.log("get");
             // Get the logged in user's parked (unused) activities.
             agendaService.getActivities({
                 'user_id': loggedUser.id,
@@ -103,58 +102,34 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.removeAttendee(id);
         };
 
-        $scope.modalRefresh = function() {
-            $scope.modalInstance.result.then(function (selectedItem) {
-                $scope.getActivities();
-            }, function () {
-            })['finally'](function(){
-                modalInstance = undefined;  // This fixes a bug in modal.
-            });
-        };
-
-        $scope.modalUpdate = function (size, activity) {
+        $scope.createModal = function(partial, activity) {
             $scope.selectedActivity = activity;
             $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
-                templateUrl: 'partials/agenda/editActivity.html',
+                templateUrl: partial,
+                controller: 'agendaModalController',
+                size: 'm',
                 resolve: {
                     activity: function () {
                         return $scope.selectedActivity;
-                    }
-                },
-                controller: 'agendaModalController',
-                size: size
-            });
-            $scope.modalRefresh();
-        };
-
-
-        $scope.modalNew = function (size) {
-            $scope.modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'partials/agenda/newActivity.html',
-                controller: 'agendaModalController',
-                size: size,
-                resolve: {
-                    activity: function () {
-                        return $scope.selectedActivity;
+                    },
+                    agendaScope: function() {
+                        return $scope;
                     }
                 }
             });
+        };
+
+        $scope.modalUpdate = function (activity) {
+            $scope.createModal('partials/agenda/editActivity.html', activity);
+        };
+
+        $scope.modalNew = function (size) {
+            $scope.createModal('partials/agenda/newActivity.html');
         };
 
         $scope.modalDelete = function (size, activity) {
-            $scope.modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'partials/agenda/deleteActivity.html',
-                controller: 'agendaModalController',
-                size: size,
-                resolve: {
-                    activity: function () {
-                        return $scope.selectedActivity;
-                    }
-                }
-            });
+            $scope.createModal('partials/agenda/deleteActivity.html', activity);
         };
 
         $scope.$watch('date', function () {
