@@ -11,7 +11,7 @@ class AgendasController extends Controller
 {
   public function index(Request $request)
   {
-    // Handles requests such as ".../api/agendas?user_id=1"
+    // Handles requests such as ".../api/agendas?description='hej'"
     return response(Agenda::where($request->toArray())->get());
   }
 

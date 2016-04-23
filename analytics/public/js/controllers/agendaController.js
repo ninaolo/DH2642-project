@@ -102,9 +102,18 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.removeAttendee(id);
         };
 
+        $scope.modalRefresh = function() {
+            $scope.modalInstance.result.then(function (selectedItem) {
+                $scope.getActivities();
+            }, function () {
+            })['finally'](function(){
+                modalInstance = undefined;  // This fixes a bug in modal.
+            });
+        };
+
         $scope.modalUpdate = function (size, activity) {
             $scope.selectedActivity = activity;
-            var modalInstance = $uibModal.open({
+            $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/editActivity.html',
                 resolve: {
@@ -115,19 +124,12 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                 controller: 'agendaModalController',
                 size: size
             });
-
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-                $scope.getActivities();
-                console.log("update");
-            }, function () {
-            })['finally'](function(){
-                modalInstance = undefined;  // This fixes a bug in modal.
-            });
+            $scope.modalRefresh();
         };
 
+
         $scope.modalNew = function (size) {
-            var modalInstance = $uibModal.open({
+            $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/newActivity.html',
                 controller: 'agendaModalController',
@@ -138,18 +140,10 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                     }
                 }
             });
-
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-                $scope.getActivities();
-            }, function () {
-            })['finally'](function(){
-                modalInstance = undefined;  // This fixes a bug in modal.
-            });
         };
 
         $scope.modalDelete = function (size, activity) {
-            var modalInstance = $uibModal.open({
+            $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/deleteActivity.html',
                 controller: 'agendaModalController',
@@ -159,14 +153,6 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         return $scope.selectedActivity;
                     }
                 }
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-                $scope.getActivities();
-            }, function () {
-            })['finally'](function(){
-                modalInstance = undefined;  // This fixes a bug in modal.
             });
         };
 

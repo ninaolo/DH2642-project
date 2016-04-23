@@ -28,10 +28,11 @@ class User extends Authenticatable
     ];
 
     public function activities() {
-      return $this->hasMany('App\Activity');
+      return $this->hasMany('App\Activity'); // One-to-many relationship
     }
 
     public function agendas() {
-      return $this->hasMany('App\Agenda');
+      return $this->belongsToMany('App\Agenda', 'a_attendees'); // Many-to-many relationship
     }
+
 }

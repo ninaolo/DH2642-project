@@ -1,4 +1,6 @@
 <?php
+use App\User;
+use App\Agenda;
 
 // Middleware = user authentication. If user not authenticated, these routes
 // will redirect to login page.
@@ -36,6 +38,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('activities/{id}', 'ActivitiesController@show');
         Route::put('activities/{id}', 'ActivitiesController@update');
         Route::delete('activities/{id}', 'ActivitiesController@destroy');
+
+        // Many-to-many document resource
+        Route::get('agendas/{id}/users', function($id) {
+          return Agenda::find($id)->users()->get();
+        });
 
     });
 

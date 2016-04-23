@@ -15,6 +15,10 @@ class Agenda extends Model
    ];
 
     public function activities() {
-      return $this->hasMany('App\Activity');
+      return $this->hasMany('App\Activity'); // One-to-many relationship
+    }
+
+    public function users() {
+      return $this->belongsToMany('App\User'); // Many-to-many relationship
     }
 }

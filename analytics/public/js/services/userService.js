@@ -13,6 +13,7 @@ analytics.factory('userService', function ($http, $q) {
     };
 
     userService.getLoggedUser = function() {
+        console.log(loggedUser.promise);
         return loggedUser.promise;
     };
 
