@@ -28,11 +28,14 @@ analytics.config(['$routeProvider',
             templateUrl: 'partials/agenda/new.html',
             controller: 'agendaController',
             resolve: {
-                loggedUser: getLoggedUser
+                loggedUser: getLoggedUser // Returns a promise which gets resolved in userService.
             }
         }).when('/agenda/invite', {
             templateUrl: 'partials/agenda/calendarevent.html',
-            controller: 'agendaController'
+            controller: 'agendaController',
+            resolve: {
+                loggedUser: getLoggedUser
+            }
         }).when('/agenda/google', {
             templateUrl: 'partials/agenda/google.html',
             controller: 'googleController'

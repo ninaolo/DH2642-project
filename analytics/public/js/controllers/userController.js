@@ -33,7 +33,6 @@ analytics.controller("userController", function ($scope, $rootScope, userService
             userService.setLoggedUser("");
             userService.checkLogin();
             $window.location.href = "#/info";
-            console.log(response);
         });
         agendaService.resetState();
     };

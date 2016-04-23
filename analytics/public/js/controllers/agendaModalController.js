@@ -1,8 +1,8 @@
-analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity',
-    function ($scope, $uibModalInstance, agendaService, activity) {
+analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity', 'agendaScope',
+    function ($scope, $uibModalInstance, agendaService, activity, agendaScope) {
         $scope.activity = activity;
 
-        $scope.range = function(a, b) {
+        $scope.range = function (a, b) {
             return range(a, b);
         };
 
@@ -18,13 +18,24 @@ analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'a
             agendaService.updateActivity({
                 'name': this.name,
                 'duration': this.duration
-            }, $scope.activity.id);
+            }, $scope.activity.id).success(function () {
+                agendaScope.getActivities();
+            });
         };
 
         $scope.createActivity = function () {
             agendaService.newActivity({
                 'name': this.name,
                 'duration': this.duration
+            }).success(function () {
+                agendaScope.getActivities();
             });
         };
+
+        $scope.deleteActivity = function () {
+            agendaService.deleteActivity($scope.activity.id).success(function() {
+                agendaScope.getActivities();
+            });
+        };
+
     }]);
