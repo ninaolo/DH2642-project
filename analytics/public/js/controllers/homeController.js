@@ -1,11 +1,11 @@
-analytics.controller("homeController", function($scope, userService) {
+analytics.controller("homeController", ['$scope', 'userService', function ($scope, userService) {
 
-    $scope.getLoggedIn = function() {
-        return userService.getLoggedIn();
-    };
+        $scope.getLoggedIn = function () {
+            return userService.getLoggedIn().value;
+        };
 
-    $scope.getLoggedUser = function() {
-        return userService.getLoggedUser();
-    };
+        $scope.getLoggedUser = function () {
+            return userService.getLoggedUser().value;
+        };
 
-});
+    }]);

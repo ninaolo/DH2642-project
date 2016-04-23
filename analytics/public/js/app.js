@@ -26,7 +26,10 @@ analytics.config(['$routeProvider',
             controller: 'colleaguesController'
         }).when('/agenda/new', {
             templateUrl: 'partials/agenda/new.html',
-            controller: 'agendaController'
+            controller: 'agendaController',
+            resolve: {
+                loggedUser: getLoggedUser
+            }
         }).when('/agenda/invite', {
             templateUrl: 'partials/agenda/calendarevent.html',
             controller: 'agendaController'
@@ -36,7 +39,22 @@ analytics.config(['$routeProvider',
         }).otherwise({
             redirectTo: '/login'
         });
+
+        function getLoggedUser(userService) {
+            return userService.getLoggedUser().then(function(loggedUser) {
+                return loggedUser;
+            });
+        }
+
+        function getLoggedIn(userService) {
+            return userService.getLoggedIn().then(function(loggedIn) {
+                return loggedIn;
+            });
+        }
+
     }]);
+
+
 
 analytics.run(function ($rootScope, $window, userService, agendaService) {
 
@@ -49,19 +67,8 @@ analytics.run(function ($rootScope, $window, userService, agendaService) {
         $window.location.href = "#/info";
     };
 
-    $rootScope.addScrollMagic = function (id) {
-        console.log(id);
-        var controller = new ScrollMagic.Controller();
-        var scene = new ScrollMagic.Scene({
-            triggerElement: "#" + id,
-            offset: -100
-        })
-            .setTween("#" + id, 2, {opacity: 1})
-            //.addIndicators({name: id}) // add helpful indicators for debugging
-            .addTo(controller);
-    };
-
     agendaService.resetState();
+    var allDone = true;
 
 });
 
@@ -102,4 +109,14 @@ var removeFromList = function(id, list) {
             list.splice(i, 1);
         }
     }
+};
+
+// A helper method for creating hour/minute ranges.
+var range = function (start, end) {
+    var rangeList = [];
+    for (var i = 0; i <= (end - start); i++) {
+        var digitWithLeadingZeros = (1e4 + "" + start + i).slice(-2);
+        rangeList.push(digitWithLeadingZeros);
+    }
+    return rangeList;
 };

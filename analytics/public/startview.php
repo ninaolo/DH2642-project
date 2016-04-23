@@ -101,12 +101,6 @@
     <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script src="bower_components/fullcalendar/dist/gcal.js"></script>
 
-    <!-- Include ScrollMagic and GSAP -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
-
     <!-- Modules -->
     <script src="js/app.js"></script>
 
@@ -117,6 +111,7 @@
     <script src="js/controllers/colleaguesController.js"></script>
     <script src="js/controllers/agendaController.js"></script>
     <script src="js/controllers/googleController.js"></script>
+    <script src="js/controllers/agendaModalController.js"></script>
 
     <!-- Directives -->
     <script src="js/directives/droppable.js"></script>

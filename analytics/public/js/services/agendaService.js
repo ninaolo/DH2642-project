@@ -24,12 +24,10 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     agendaService.changeDate = function (newDate) {
-        console.log("before: " + date.toISOString());
         var duration = agendaService.getTotalTime();
         date.year(newDate.get('year')).month(newDate.get('month')).date(newDate.get('date'));
         endTime = date.clone();
         endTime.add(duration);
-        console.log("after: " + date.toISOString());
     };
 
     agendaService.setEndTime = function (newTime) {
@@ -155,17 +153,14 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     // Add a new activity
-    agendaService.newActivity = function (activityName, newDuration) {
+    agendaService.newActivity = function (activityData) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
             },
             url: apiUrl + "/activities",
             method: "POST",
-            data: {
-                name: activityName,
-                duration: newDuration
-            }
+            data: activityData
         });
     };
 

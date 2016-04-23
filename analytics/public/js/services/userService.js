@@ -1,8 +1,8 @@
-analytics.factory('userService', function ($http) {
+analytics.factory('userService', function ($http, $q) {
 
     var userService = {};
-    var loggedIn = false;
-    var loggedUser = {};
+    var loggedIn = $q.defer();
+    var loggedUser = $q.defer();
 
     userService.setLoggedIn = function(val) {
         loggedIn = val;
@@ -13,11 +13,11 @@ analytics.factory('userService', function ($http) {
     };
 
     userService.getLoggedUser = function() {
-        return loggedUser;
+        return loggedUser.promise;
     };
 
     userService.getLoggedIn = function() {
-        return loggedIn;
+        return loggedIn.promise;
     };
 
     userService.doLogin = function (loginData) {
@@ -48,13 +48,13 @@ analytics.factory('userService', function ($http) {
         return $http.get(apiUrl + '/checklogin')
             .success(function (data) {
                 if (data === "false") {
-                   loggedIn = "false";
-                    loggedUser = "";
+                    loggedIn.resolve("false");
+                    loggedUser.resolve("");
                 } else {
-                    loggedIn = "true";
-                    loggedUser = data;
+                    loggedIn.resolve("true");
+                    loggedUser.resolve(data);
                 }
-                console.log('check login: ' + loggedIn);
+                console.log(loggedIn);
                 console.log(data);
             });
     };

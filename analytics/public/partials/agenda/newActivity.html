@@ -1,4 +1,4 @@
-<section data-ng-controller="agendaController">
+<section>
     <div class="modal-header">
         <h3 class="modal-title">Create activity</h3>
     </div>
@@ -18,8 +18,6 @@
                     <select type="txt" ng-options="minute as minute for minute in range(0, 60)" data-ng-model="duration"></select>
                     <p ng-show="newActivityForm.duration.$invalid && !newActivityForm.activity.$pristine" class="error">Your activity needs a time</p>
                 </div>
-
-
 
             </form>
         </fieldset>

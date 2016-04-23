@@ -1,5 +1,5 @@
-analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log',
-    function ($scope, moment, agendaService, userService, $uibModal, $log) {
+analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log', 'loggedUser',
+    function ($scope, moment, agendaService, userService, $uibModal, $log, loggedUser) {
 
         $scope.pickHour = agendaService.getStartHour();
         $scope.pickMinute = agendaService.getStartMinute();
@@ -7,28 +7,22 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.name = "";
         $scope.description = "";
         $scope.date = agendaService.getDate();
+        $scope.loggedUser = loggedUser;
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
             $scope.users = response;
         });
 
-        // Get the logged in user's parked (unused) activities.
-        agendaService.getActivities({
-            'user_id': userService.getLoggedUser().id,
-            'agenda_id': 0
-        }).success(function (response) {
-            $scope.activities = response;
-        });
-
-        // A helper method for creating hour/minute ranges.
-        $scope.range = function (start, end) {
-            var rangeList = [];
-            for (var i = 0; i <= (end - start); i++) {
-                var digitWithLeadingZeros = (1e4 + "" + start + i).slice(-2);
-                rangeList.push(digitWithLeadingZeros);
-            }
-            return rangeList;
+        $scope.getActivities = function () {
+            console.log("get");
+            // Get the logged in user's parked (unused) activities.
+            agendaService.getActivities({
+                'user_id': loggedUser.id,
+                'agenda_id': 0
+            }).success(function (response) {
+                $scope.activities = response;
+            });
         };
 
         $scope.setNameAndDescription = function () {
@@ -63,6 +57,10 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             return agendaTime;
         };
 
+        $scope.range = function (a, b) {
+            return range(a, b);
+        };
+
         $scope.handleAgendaDrop = function (activity, index) {
             agendaService.addToAgenda(activity, index);
             agendaService.setEndTime(agendaService.getEndTime().add(activity.duration, 'minutes'));
@@ -73,7 +71,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.setEndTime(agendaService.getEndTime().subtract(activity.duration, 'minutes'));
             agendaService.removeFromAgenda(activity.id);
             if (!idInList(activity.id, $scope.activities)) {
-                if(index) {
+                if (index) {
                     $scope.activities.splice(index, 0, activity);
                 } else {
                     $scope.activities.push(activity);
@@ -114,31 +112,17 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                         return $scope.selectedActivity;
                     }
                 },
-                controller: function ($scope, $uibModalInstance, activity) {
-                    $scope.activity = activity;
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close($scope.activity);
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-
-                    $scope.editActivity = function () {
-                        agendaService.updateActivity({
-                            'name': this.name,
-                            'duration': this.duration
-                        }, $scope.activity.id);
-                    };
-                },
+                controller: 'agendaModalController',
                 size: size
             });
 
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
+                $scope.getActivities();
+                console.log("update");
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+            })['finally'](function(){
+                modalInstance = undefined;  // This fixes a bug in modal.
             });
         };
 
@@ -146,21 +130,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/newActivity.html',
-                controller: function ($scope, $uibModalInstance) {
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close($scope.activity);
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-
-                    $scope.createActivity = function () {
-                        agendaService.newActivity(this.name, this.duration);
-                    };
-
-                },
+                controller: 'agendaModalController',
                 size: size,
                 resolve: {
                     activity: function () {
@@ -171,60 +141,18 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
+                $scope.getActivities();
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+            })['finally'](function(){
+                modalInstance = undefined;  // This fixes a bug in modal.
             });
         };
-
-        $scope.Delete = function (size, activity) {
-            $scope.selectedActivity = activity;
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'partials/agenda/deleteActivity.html',
-                resolve: {
-                    activity: function () {
-                        return $scope.selectedActivity;
-                    }
-                },
-                controller: function ($scope, $uibModalInstance, activity) {
-                    $scope.activity = activity;
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close($scope.activity);
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-
-                    $scope.editActivity = function () {
-                        agendaService.removeActivity($scope.activity.id);
-                    };
-                },
-                size: size
-            });
-        };
-
 
         $scope.modalDelete = function (size, activity) {
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'partials/agenda/deleteActivity.html',
-                controller: function ($scope, $uibModalInstance, activity) {
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close($scope.activity);
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-
-                    $scope.deleteActivity = function () {
-                        agendaService.removeActivity($scope.activity.id);
-                    };
-
-                },
+                controller: 'agendaModalController',
                 size: size,
                 resolve: {
                     activity: function () {
@@ -235,8 +163,10 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
+                $scope.getActivities();
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+            })['finally'](function(){
+                modalInstance = undefined;  // This fixes a bug in modal.
             });
         };
 
