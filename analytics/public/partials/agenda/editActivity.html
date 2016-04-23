@@ -3,11 +3,16 @@
         <h3 class="modal-title">Edit activity</h3>
     </div>
 
-    <ng-include src="'partials/agenda/activityForm.html'"></ng-include>
-
-    <div class="modal-footer">
-        <button class="btn btn-other" type="button" ng-click="editActivity();ok()">Update activity</button>
-        <button class="btn btn-other" type="button" ng-click="cancel()">Cancel</button>
+    <div class="modal-body">
+        <fieldset>
+            <form name="activityForm" novalidate>
+                <ng-include src="'partials/agenda/activityForm.html'"></ng-include>
+            </form>
+        </fieldset>
     </div>
 
+    <div class="modal-footer">
+        <button class="btn btn-other" ng-click="editActivity(activityForm.$valid)">Edit activity</button>
+        <button class="btn btn-other" ng-click="cancel()">Cancel</button>
+    </div>
 </section>
