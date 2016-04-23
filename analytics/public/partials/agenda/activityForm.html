@@ -1,0 +1,21 @@
+<div class="modal-body">
+    <fieldset>
+        <form name="activityForm" novalidate>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input name="activity" ng-model="$parent.name" placeholder="{{activity.name}}" class="form-control"
+                       ng-minlength="2" ng-maxlength="30" required>
+                <p ng-show="productForm.name.$error.minlength" class="error">At least 2 characters.</p>
+                <p ng-show="productForm.name.$error.maxlength" class="error">Not more than 30 characters.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Duration in minutes</label>
+                <select ng-model="$parent.duration" ng-options="minute as minute for minute in range(1, 60)">
+                </select>
+            </div>
+
+        </form>
+    </fieldset>
+</div>

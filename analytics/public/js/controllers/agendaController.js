@@ -102,13 +102,13 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.removeAttendee(id);
         };
 
-        $scope.createModal = function(partial, size, activity) {
+        $scope.createModal = function(partial, activity) {
             $scope.selectedActivity = activity;
             $scope.modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: partial,
                 controller: 'agendaModalController',
-                size: size,
+                size: 'm',
                 resolve: {
                     activity: function () {
                         return $scope.selectedActivity;
@@ -120,16 +120,16 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             });
         };
 
-        $scope.modalUpdate = function (size, activity) {
-            $scope.createModal('partials/agenda/editActivity.html', size, activity);
+        $scope.modalUpdate = function (activity) {
+            $scope.createModal('partials/agenda/editActivity.html', activity);
         };
 
         $scope.modalNew = function (size) {
-            $scope.createModal('partials/agenda/newActivity.html', size);
+            $scope.createModal('partials/agenda/newActivity.html');
         };
 
         $scope.modalDelete = function (size, activity) {
-            $scope.createModal('partials/agenda/deleteActivity.html', size, activity);
+            $scope.createModal('partials/agenda/deleteActivity.html', activity);
         };
 
         $scope.$watch('date', function () {

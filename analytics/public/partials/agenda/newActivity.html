@@ -2,30 +2,12 @@
     <div class="modal-header">
         <h3 class="modal-title">Create activity</h3>
     </div>
-    <div class="modal-body">
-        <fieldset>
-            <form name="newActivityForm">
 
-                <div class="form-group">
-                    <label>Name</label>
-                    <input name="activity" type="txt" data-ng-model="name" placeholder="Name of activity"
-                           class="form-control" required>
-                    <p ng-show="newActivityForm.activity.$invalid && !newActivityForm.activity.$pristine" class="error">Your activity needs a name</p>
-                </div>
+    <ng-include src="'partials/agenda/activityForm.html'"></ng-include>
 
-                <div class="form-group">
-                    <label>Time</label>
-                    <select type="txt" ng-options="minute as minute for minute in range(0, 60)" data-ng-model="duration"></select>
-                    <p ng-show="newActivityForm.duration.$invalid && !newActivityForm.activity.$pristine" class="error">Your activity needs a time</p>
-                </div>
-
-            </form>
-        </fieldset>
-    </div>
     <div class="modal-footer">
-        <!--<input type="submit" name="editActivity" value="Update activity" class="btn btn-primary btn-block">-->
-        <button class="btn btn-success" type="button" ng-click="createActivity();ok()">Create activity</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-other" type="button" ng-click="createActivity();ok()">Create activity</button>
+        <button class="btn btn-other" type="button" ng-click="cancel()">Cancel</button>
     </div>
 
 </section>

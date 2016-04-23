@@ -15,6 +15,7 @@ analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'a
         };
 
         $scope.editActivity = function () {
+            console.log("edit");
             agendaService.updateActivity({
                 'name': this.name,
                 'duration': this.duration
