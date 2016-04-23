@@ -27,6 +27,10 @@
 }
 
 .ul .li {
-    font-size: 200%;
+    font-size: 150%;
     padding: 5px;
+}
+
+.li:hover{
+    background-color: #DF9F39;;
 }

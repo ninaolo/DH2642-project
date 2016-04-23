@@ -139,5 +139,13 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
             agendaService.changeDate(moment($scope.date));
         });
 
+        $scope.getAgendaWithID = function(){
+            agendaService.getAgendaWithID($routeParams.id)
+                .success(function (response) {
+                    $scope.chosenAgenda = response;
+
+                });
+        };
+
 
     }]);

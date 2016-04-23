@@ -2,9 +2,9 @@ analytics.controller("profileController", function ($scope, $routeParams, userSe
 
     $scope.profileUser = {};
     $scope.dates = { 20160423:
-    [{ name: 'test agenda', reading: 3, starttime: "13.45" },
-        { name: 'test agenda1', reading: 5, starttime: "15:00"},
-        { name: 'test agenda2', reading: 6, starttime: "16:30" }]
+    [{ name: 'test agenda', reading: 3, starttime: "13.45", id: 1 },
+        { name: 'test agenda1', reading: 5, starttime: "15:00", id: 1},
+        { name: 'test agenda2', reading: 6, starttime: "16:30", id: 1 }]
         , 20160424:
         [{ name: 'my agenda', reading: 3, starttime: "13.45" },
             { name: 'my agenda2', reading: 6, starttime: "16:30" }]

@@ -51,8 +51,10 @@
 
             -->
             <ul style="list-style-type:circle">
-            <div ng-repeat="myAgenda in foundAgendas" ng-click="showAgenda(myAgenda)">
+            <div ng-repeat="myAgenda in foundAgendas">
+                <a href="#/agenda/{{myAgenda.id}}">
                     <li>{{myAgenda.name}}, {{myAgenda.starttime}}</li>
+                </a>
             </div>
             </ul>
         </div>
