@@ -8,6 +8,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.description = "";
         $scope.date = agendaService.getDate();
         $scope.loggedUser = loggedUser;
+		$scope.minDate = Date.now();
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
