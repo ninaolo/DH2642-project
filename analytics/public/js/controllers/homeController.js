@@ -1,12 +1,17 @@
 analytics.controller("homeController", ['$scope', 'userService',
     function ($scope, userService) {
 
-        $scope.getLoggedIn = function () {
-            return userService.getLoggedIn().$$state.value;
-        };
+        $scope.loggedInLoaded = false;
+        $scope.loggedUserLoaded = false;
 
-        $scope.getLoggedUser = function () {
-            return userService.getLoggedUser().$$state.value;
-        };
+        userService.getLoggedIn().then(function (loggedIn) {
+            $scope.loggedIn = loggedIn;
+            $scope.loggedInLoaded = true;
+        });
+
+        userService.getLoggedUser().then(function(loggedUser) {
+            $scope.loggedUser = loggedUser;
+            $scope.loggedUserLoaded = true;
+        });
 
     }]);

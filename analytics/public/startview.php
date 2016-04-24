@@ -34,7 +34,7 @@
     <div id="wrap">
         <div id="main">
 
-        <ng-include src="'partials/navbar.html'" ng-controller="homeController"></ng-include>
+        <ng-include ng-show="loggedInLoaded && loggedUserLoaded" src="'partials/navbar.html'" ng-controller="homeController"></ng-include>
 
             <!-- Main Angular content -->
             <div ng-view></div>

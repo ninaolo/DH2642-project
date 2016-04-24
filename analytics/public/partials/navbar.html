@@ -11,7 +11,7 @@
 
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right" ng-switch on="getLoggedIn()">
+            <ul class="nav navbar-nav navbar-right" ng-switch on="loggedIn">
                 <li><a href="#/about">Meeter FAQ</a></li>
 
                 <li ng-switch-when="true"><a href="#/colleagues">Colleagues</a></li>
@@ -21,7 +21,7 @@
                         {{getLoggedUser().name}} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#/profile/{{getLoggedUser().id}}"><i class="fa fa-btn fa-user"></i> Profile</a></li>
+                        <li><a href="#/profile/{{loggedUser.id}}"><i class="fa fa-btn fa-user"></i> Profile</a></li>
                         <li><a href="#/agenda/new"><i class="fa fa-btn fa-plus"></i> New agenda</a></li>
                         <li><a href="#/logout"><i class="fa fa-btn fa-sign-out"></i> Log out</a></li>
                     </ul>
