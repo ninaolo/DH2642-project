@@ -1,4 +1,4 @@
-var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap', 'ui.calendar']);
+var analytics = angular.module('analytics', ['ngRoute', 'ngCookies', 'angularMoment', 'ui.bootstrap', 'ui.calendar', 'angularSpinner']);
 
 analytics.config(['$routeProvider',
     function ($routeProvider) {
