@@ -13,10 +13,28 @@ analytics.factory('userService', function ($http, $q) {
     };
 
     userService.getLoggedUser = function() {
+        var loggedUser = $q.defer();
+        $http.get(apiUrl + '/checklogin')
+            .success(function (data) {
+                if (data === "false") {
+                    loggedUser.resolve("");
+                } else {
+                    loggedUser.resolve(data);
+                }
+            });
         return loggedUser.promise;
     };
 
     userService.getLoggedIn = function() {
+        var loggedIn = $q.defer();
+        $http.get(apiUrl + '/checklogin')
+            .success(function (data) {
+                if (data === "false") {
+                    loggedIn.resolve("false");
+                } else {
+                    loggedIn.resolve("true");
+                }
+            });
         return loggedIn.promise;
     };
 
@@ -48,11 +66,7 @@ analytics.factory('userService', function ($http, $q) {
         return $http.get(apiUrl + '/checklogin')
             .success(function (data) {
                 if (data === "false") {
-                    loggedIn.resolve("false");
-                    loggedUser.resolve("");
                 } else {
-                    loggedIn.resolve("true");
-                    loggedUser.resolve(data);
                 }
                 console.log(loggedIn);
                 console.log(data);

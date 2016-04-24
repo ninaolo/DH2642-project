@@ -3,6 +3,8 @@ analytics.controller("homeController", ['$scope', 'userService',
 
         $scope.loggedInLoaded = false;
         $scope.loggedUserLoaded = false;
+        $scope.loggedIn = false;
+        $scope.loggedUser = "";
 
         userService.getLoggedIn().then(function (loggedIn) {
             $scope.loggedIn = loggedIn;

@@ -16,8 +16,9 @@
     background-color: #DF9F39;
 }
 
-.orange-box .whiteFont{
+.orange-box .whiteFont {
     color: white;
+    font-size: 20px;
 }
 
 .blue-box {
@@ -31,8 +32,9 @@
     height: 800px;
 }
 
-h3 {
+.orange-font {
     color: #DF9F39;
+    font-size: 20px;
 }
 
 .banner h1 {
@@ -41,10 +43,6 @@ h3 {
     font-size: 40px;
     font-family: Raleway, sans-serif;
     letter-spacing: 10px;
-}
-
-i{
-
 }
 
 .banner p {
