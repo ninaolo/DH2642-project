@@ -33,7 +33,7 @@
 
     <div class="row meetings">
         <div class="col-md-6 col-md-offset-3">
-            <uib-datepicker ng-if="agendasAreLoaded" ng-model="dt" class="well well-sm" starting-day="1"
+            <uib-datepicker ng-init="clicked(dt)" ng-if="agendasAreLoaded" ng-model="dt" class="well well-sm" starting-day="1"
                             custom-class="getDayClass(date, mode)"
                             ng-click="clicked(dt)"></uib-datepicker>
         </div>

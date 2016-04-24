@@ -1,5 +1,5 @@
-analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity', 'agendaScope',
-    function ($scope, $uibModalInstance, agendaService, activity, agendaScope) {
+analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'agendaService', 'activity', 'agendaScope', 'activityService',
+    function ($scope, $uibModalInstance, agendaService, activity, agendaScope, activityService) {
         $scope.activity = activity;
         $scope.wrongValuesMsg = "Please submit all values.";
 
@@ -23,7 +23,7 @@ analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'a
 
         $scope.editActivity = function (isValid) {
             if(isValid) {
-                agendaService.updateActivity({
+                activityService.updateActivity({
                     'name': $scope.activity.name,
                     'duration': $scope.activity.duration
                 }, $scope.activity.id).success(function () {
@@ -37,7 +37,7 @@ analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'a
 
         $scope.createActivity = function (isValid) {
             if(isValid) {
-                agendaService.newActivity({
+                activityService.newActivity({
                     'name': $scope.activity.name,
                     'duration': $scope.activity.duration
                 }).success(function () {
@@ -50,7 +50,7 @@ analytics.controller('agendaModalController', ['$scope', '$uibModalInstance', 'a
         };
 
         $scope.deleteActivity = function () {
-            agendaService.deleteActivity($scope.activity.id).success(function() {
+            activityService.deleteActivity($scope.activity.id).success(function() {
                 agendaScope.getActivities();
             });
         };

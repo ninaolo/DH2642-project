@@ -78,14 +78,7 @@
     </div>
 
     <div class="col-md-2 col-md-offset-1" id="details">
-        <h4>Details</h4>
-        <p>Date: {{getDate() | amDateFormat: 'DD/MM-YY'}}</p>
-        <p>Start time: {{getDate() | amDateFormat:'HH:mm'}} </p>
-        <p>End time: {{getEndTime() | amDateFormat:'HH:mm'}}
-        <p>
-        <hr id="line">
-        <p>Total length: {{getEndTime() | amDifference : getDate() : 'minutes'}} min</p>
-
+        <agenda-details date="getDate()" end-time="getEndTime()"></agenda-details>
         <div id="trashcan" droppable handle="handleTrash(activity)"><i class="fa fa-btn fa-trash"></i></div>
     </div>
 

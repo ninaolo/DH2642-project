@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="css/agenda.css">
+
+<div class="container-fluid view-fade-in" ng-init="getAgenda()">
+
+    <div id="agenda">
+
+        <div class="row">
+            <h2> {{chosenAgenda.name}} </h2>
+            <p>{{chosenAgenda.description}}</p>
+        </div>
+
+        <div class="row" id="middle">
+
+            <div id="attendees" class="col-md-2 col-md-offset-2">
+                <h4>Attendees</h4>
+                <a ng-href="#/profile/{{attendee.id}}" ng-repeat="attendee in attendees">
+                    {{attendee.name}}<br>
+                </a>
+            </div>
+
+            <div id="info" class="col-md-4">
+                <div class="row" ng-repeat="activity in activities">
+                    <div class="col-md-5">
+                        <span class="time-frame">{{activity.timeFrame}}</span>
+                    </div>
+                    <div class="col-md-7 no-margin">
+                        {{activity.name}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <agenda-details date="chosenAgenda.date" end-time="chosenAgenda.enddate"></agenda-details>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <a id="edit-btn" class="btn btn-primary buttons">Edit agenda >></a>
+        </div>
+
+    </div>
+
+</div>

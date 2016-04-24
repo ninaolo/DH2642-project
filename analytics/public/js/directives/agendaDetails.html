@@ -1,0 +1,7 @@
+<h4>Details</h4>
+<p>Date: {{date | amDateFormat: 'DD/MM-YY'}}</p>
+<p>Start time: {{date | amDateFormat:'HH:mm'}} </p>
+<p>End time: {{endTime | amDateFormat:'HH:mm'}}
+<p>
+<hr id="line">
+<p>Total length: {{endTime | amDifference : date : 'minutes'}} min</p>

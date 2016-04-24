@@ -58,7 +58,7 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.addToAgenda = function (activity, index) {
         if (!idInList(activity.id, agenda)) {
-            if(index) {
+            if (index) {
                 agenda.splice(index, 0, activity);
             } else {
                 agenda.push(activity);
@@ -79,7 +79,7 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.addAttendee = function (attendee) {
         // Don't add attendee if already in list.
-        if(!idInList(attendee.id, attendees)) {
+        if (!idInList(attendee.id, attendees)) {
             attendees.push(attendee);
         }
     };
@@ -92,10 +92,10 @@ analytics.factory('agendaService', function ($http, moment) {
         return attendees;
     };
 
-    agendaService.getAttendeeEmails = function() {
+    agendaService.getAttendeeEmails = function () {
         var emailList = [];
         for (i = 0; i < attendees.length; i++) {
-            emailList.push({'email' : attendees[i].email});
+            emailList.push({'email': attendees[i].email});
         }
         return emailList;
     };
@@ -147,10 +147,6 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    agendaService.getActivity = function (id) {
-        return $http.get(apiUrl + '/activities/' + id);
-    };
-
     // Resets the state of the service.
     agendaService.resetState = function () {
         startHour = "08";
@@ -162,40 +158,13 @@ analytics.factory('agendaService', function ($http, moment) {
         day = Date.now();
     };
 
-    // Add a new activity
-    agendaService.newActivity = function (activityData) {
-        return $http({
-            headers: {
-                "Content-Type": "application/json"
-            },
-            url: apiUrl + "/activities",
-            method: "POST",
-            data: activityData
-        });
-    };
-
-    agendaService.updateActivity = function (newData, id) {
-        return $http({
-            headers: {
-                "Content-Type": "application/json"
-            },
-            url: apiUrl + "/activities/" + id,
-            method: "PUT",
-            data: newData
-        });
-    };
-
-    agendaService.deleteActivity = function (id) {
-        return $http.delete(apiUrl + '/activities/' + id)
-    };
-
-    agendaService.newAgenda = function(link) {
+    agendaService.newAgenda = function (link) {
         var attendeeIds = [];
-        for(var i = 0; i < attendees.length; i++) {
+        for (var i = 0; i < attendees.length; i++) {
             attendeeIds.push(attendees[i].id);
         }
         var activityIds = [];
-        for(var i = 0; i < agenda.length; i++) {
+        for (var i = 0; i < agenda.length; i++) {
             activityIds.push(agenda[i].id);
         }
         var agendaData = {
@@ -207,7 +176,6 @@ analytics.factory('agendaService', function ($http, moment) {
             'activities': activityIds,
             'link': link
         };
-        console.log(agendaData);
         return $http({
             headers: {
                 "Content-Type": "application/json"
@@ -219,7 +187,7 @@ analytics.factory('agendaService', function ($http, moment) {
     };
 
     agendaService.getAgendaWithID = function (id) {
-        return $http.get('agendas/'+id+'/users');
+        return $http.get(apiUrl + '/agendas/' + id);
     };
 
     return agendaService;

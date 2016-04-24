@@ -43,8 +43,8 @@ analytics.config(['$routeProvider',
             templateUrl: 'partials/agenda/google.html',
             controller: 'googleController'
         }).when('/agenda/:id', {
-            templateUrl: 'partials/agenda.html',
-            controller: 'agendaController'
+            templateUrl: 'partials/agenda/agenda.html',
+            controller: 'agendaOverviewController'
         }).otherwise({
             redirectTo: '/login'
         });
