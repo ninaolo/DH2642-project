@@ -218,6 +218,10 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
+    agendaService.getAgendaWithID = function (id) {
+        return $http.get('agendas/'+id+'/users');
+    };
+
     return agendaService;
 
 });
