@@ -5,6 +5,7 @@ analytics.controller("profileController", ['$scope', '$routeParams', 'userServic
         $scope.agendas = {};
         $scope.agendasAreLoaded = false;
         $scope.dt = new Date(); // Today.
+        $scope.showSpinner = true;
 
         // Get profile user.
         userService.getUser($routeParams.id)
@@ -24,6 +25,7 @@ analytics.controller("profileController", ['$scope', '$routeParams', 'userServic
                 }
             }
             $scope.agendasAreLoaded = true; // To make sure calendar is loaded after agendas are fetched.
+            $scope.showSpinner = false; //stop spinner
         });
 
         $scope.handleUpcomingEvents = function (events) {

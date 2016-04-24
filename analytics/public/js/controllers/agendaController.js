@@ -9,6 +9,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
         $scope.date = agendaService.getDate();
         $scope.loggedUser = loggedUser;
         $scope.minDate = Date.now();
+        $scope.showSpinner = true;
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -22,6 +23,7 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
                 'agenda_id': 0
             }).success(function (response) {
                 $scope.activities = response;
+                $scope.showSpinner = false;
             });
         };
 

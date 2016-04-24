@@ -29,6 +29,7 @@
                     <p>These are your parked activities.</p>
                 </div>
                 <div class="row">
+                    <span us-spinner="{radius:16, width:2, length: 4}" spinner-on="showSpinner"></span>
                     <div class="col-md-12" id="activities" droppable handle="handleActivitiesDrop(activity, index)">
                         <div class="row" ng-repeat="activity in activities">
                             <div class="col-md-3 minutes">
