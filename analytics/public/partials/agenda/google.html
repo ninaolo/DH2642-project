@@ -16,8 +16,12 @@
         </div>
 
         <div ng-show="eventCreated && authOkay">
-            <h4>Your Google Calendar event was successfully created</h4>
-            <p>You are now done creating the meeting agenda here on meeter as well as the Google Calendar event.</p>
+            <h4>Your Google Calendar event was successfully
+                <span ng-show="isEdit">edited</span><span ng-show="!isEdit">created</span>
+            </h4>
+            <p>You are now done
+                <span ng-show="isEdit">editing</span><span ng-show="!isEdit">creating</span>
+                the meeting agenda here on meeter as well as the Google Calendar event.</p>
             <p>Here is the link to your event on Google:</p>
             <a class="google-link" ng-href="{{event.htmlLink}}">{{event.htmlLink}}</a>
 
@@ -27,8 +31,8 @@
                 </div>
                 <div class="panel-footer">
                     <p>Description: {{event.description}}</p>
-                    <p>Start: {{event.start.dateTime}}</p>
-                    <p>End: {{event.end.dateTime}}</p>
+                    <p>Start: {{event.start.dateTime | amDateFormat : 'YYYY-MM-DD HH:mm'}}</p>
+                    <p>End: {{event.end.dateTime | amDateFormat : 'YYYY-MM-DD HH:mm'}}</p>
                 </div>
             </div>
 

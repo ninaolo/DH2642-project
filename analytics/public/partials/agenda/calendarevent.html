@@ -45,7 +45,9 @@
 
                 <div class="form-group buttons">
                     <a href="#/agenda/new" class="btn btn-primary"><< Edit agenda</a>
-                    <button class="btn btn-primary" ng-click="setFinalValues(calForm.$valid)">Create event >></button>
+                    <button class="btn btn-primary" ng-click="setFinalValues(calForm.$valid)">
+                        <span ng-show="isEdit">Edit</span><span ng-show="!isEdit">Create</span> event >>
+                    </button>
                 </div>
 
             </form>

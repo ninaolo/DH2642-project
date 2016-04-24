@@ -2,6 +2,14 @@
     padding-bottom: 100px;
 }
 
+.google-link {
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    letter-spacing: 0;
+    text-transform: lowercase;
+    font-style: italic;
+}
+
 h4 {
     color: #DF9F39;
 }

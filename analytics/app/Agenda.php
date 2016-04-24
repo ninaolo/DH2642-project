@@ -11,7 +11,7 @@ class Agenda extends Model
 
     // The attributes that are mass assignable.
    protected $fillable = [
-       'description', 'date', 'name', 'link', 'enddate'
+       'description', 'date', 'name', 'link', 'enddate', 'google_id'
    ];
 
     public function activities() {

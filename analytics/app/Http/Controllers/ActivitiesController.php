@@ -23,28 +23,29 @@ class ActivitiesController extends Controller
 
   public function store(Request $request)
   {
-    if (
-              strlen($request->input('name')) <= 30 &&
-              strlen($request->input('name')) >= 2 &&
-              $request->input('duration') <= 60 &&
-              $request->input('duration') >= 1
-          ) {
+    if ($this->inputIsValid($request)) {
 
         $activity = new Activity($request->all());
         Auth::user()->activities()->save($activity);
         return response()->json($request->toArray(), 200);
     } else {
-        return response()->json($request->toArray(), 400);
+        return response()->json([
+        'error' => 'Invalid input',
+        'request' => $request->toArray()]
+        , 400);
     }
   }
 
-  // TODO: check input.
   public function update($id, Request $request)
   {
-    $activity = Activity::findOrFail($id);
-    $activity->update($request->toArray());
-    if($activity->update($request->toArray())) {
-      return response()->json('', 200);
+    if ($this->inputIsValid($request)) {
+      $activity = Activity::findOrFail($id);
+      $activity->update($request->toArray());
+      if($activity->update($request->toArray())) {
+        return response()->json('', 200);
+      } else {
+        return response()->json('', 400);
+      }
     } else {
       return response()->json('', 400);
     }
@@ -54,5 +55,18 @@ class ActivitiesController extends Controller
   {
       $activity = Activity::findOrFail($id);
       $activity->delete();
+  }
+
+  private function inputIsValid($request) {
+    if (
+              strlen($request->input('name')) <= 30 &&
+              strlen($request->input('name')) >= 2 &&
+              $request->input('duration') <= 60 &&
+              $request->input('duration') >= 1
+          ) {
+            return true;
+          } else {
+            return false;
+          }
   }
 }

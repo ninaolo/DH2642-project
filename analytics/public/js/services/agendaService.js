@@ -1,23 +1,43 @@
 analytics.factory('agendaService', function ($http, moment) {
 
-    // Internal variables used by the service for having a state. These are set by the method resetState().
+    // Internal variables used by the service for having a state. These are reset by the method resetState().
     var agendaService = {};
-    var startHour;
-    var startMinute;
     var date;
     var endTime;
     var agenda = [];
     var attendees;
-    var name;
-    var description;
-    var link;
-
-    agendaService.getStartHour = function () {
-        return startHour;
+    var name = "";
+    var description = "";
+    var googleId = ""; // The google ID. Used when updating events on google.
+    var edit = { // This is used to determine if a new event should be created or an existing one be edited.
+        'isEdit': false,
+        'id': 0
     };
 
-    agendaService.getStartMinute = function () {
-        return startMinute;
+    // Resets the state of the service.
+    agendaService.resetState = function () {
+        date = moment("08:00", 'HH:mm');
+        endTime = date.clone();
+        agenda = [];
+        attendees = [];
+        edit.isEdit = false;
+        edit.id = 0;
+        linkId = "";
+        name = "";
+        description = "";
+    };
+
+    agendaService.setEdit = function(boolean, id) {
+        edit.isEdit = boolean;
+        edit.id = id;
+    };
+
+    agendaService.getEdit = function() {
+        return edit;
+    };
+
+    agendaService.setDate = function(newDate) {
+        date = newDate;
     };
 
     agendaService.getDate = function () {
@@ -39,21 +59,36 @@ analytics.factory('agendaService', function ($http, moment) {
         return endTime;
     };
 
+    agendaService.setName = function(newName) {
+        name = newName;
+    };
+
     agendaService.getName = function () {
         return name;
+    };
+
+    agendaService.setDescription = function(newDescription) {
+        description = newDescription;
     };
 
     agendaService.getDescription = function () {
         return description;
     };
 
-    agendaService.setFinalValues = function (n, d) {
-        name = n;
-        description = d;
+    agendaService.getGoogleId = function() {
+        return googleId;
+    };
+
+    agendaService.setGoogleId = function(newId) {
+        googleId = newId;
     };
 
     agendaService.getAgenda = function () {
         return agenda;
+    };
+
+    agendaService.setAgenda = function (newAgenda) {
+        agenda = newAgenda;
     };
 
     agendaService.addToAgenda = function (activity, index) {
@@ -86,6 +121,10 @@ analytics.factory('agendaService', function ($http, moment) {
 
     agendaService.removeAttendee = function (id) {
         removeFromList(id, attendees);
+    };
+
+    agendaService.setAttendees = function(newAttendees) {
+        attendees = newAttendees;
     };
 
     agendaService.getAttendees = function () {
@@ -147,18 +186,7 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    // Resets the state of the service.
-    agendaService.resetState = function () {
-        startHour = "08";
-        startMinute = "00";
-        date = moment(startHour + ":" + startMinute, 'HH:mm');
-        endTime = date.clone();
-        agenda = [];
-        attendees = [];
-        day = Date.now();
-    };
-
-    agendaService.newAgenda = function (link) {
+    agendaService.getFinalData = function(link, googleId) {
         var attendeeIds = [];
         for (var i = 0; i < attendees.length; i++) {
             attendeeIds.push(attendees[i].id);
@@ -174,14 +202,33 @@ analytics.factory('agendaService', function ($http, moment) {
             'enddate': endTime.format("YYYY-MM-DD HH:mm:ss"),
             'attendees': attendeeIds,
             'activities': activityIds,
-            'link': link
+            'link': link,
+            'google_id': googleId
         };
+        console.log(agendaData);
+        return agendaData;
+    };
+
+    agendaService.newAgenda = function (link, googleId) {
+        var agendaData = agendaService.getFinalData(link, googleId);
         return $http({
             headers: {
                 "Content-Type": "application/json"
             },
             url: apiUrl + "/agendas",
             method: "POST",
+            data: agendaData
+        });
+    };
+
+    agendaService.updateAgenda = function (link, googleId) {
+        var agendaData = agendaService.getFinalData(link, googleId);
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/agendas/" + edit.id,
+            method: "PUT",
             data: agendaData
         });
     };

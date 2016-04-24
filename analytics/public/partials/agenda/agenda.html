@@ -7,6 +7,7 @@
         <div class="row">
             <h2> {{chosenAgenda.name}} </h2>
             <p>{{chosenAgenda.description}}</p>
+            <a class="google-link" ng-href="{{chosenAgenda.link}}">{{chosenAgenda.link}}</a>
         </div>
 
         <div class="row" id="middle">
@@ -36,7 +37,7 @@
         </div>
 
         <div class="row">
-            <a id="edit-btn" class="btn btn-primary buttons">Edit agenda >></a>
+            <button ng-click="edit()" class="btn btn-primary buttons">Edit agenda >></button>
         </div>
 
     </div>

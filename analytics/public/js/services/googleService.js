@@ -44,6 +44,19 @@ analytics.factory('googleService', function ($http, moment) {
         });
     };
 
+    googleService.updateCalendarEvent = function(id, event, callbackFunction) {
+        var request = gapi.client.calendar.events.update({
+            'calendarId': 'primary',
+            'eventId': id,
+            'sendNotifications': true,
+            'resource': event
+        });
+
+        request.execute(function(createdEvent) {
+            callbackFunction(createdEvent);
+        });
+    };
+
     return googleService;
 
 });

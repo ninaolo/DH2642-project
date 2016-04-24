@@ -1,15 +1,16 @@
 analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', 'userService', '$uibModal', '$log', 'loggedUser', '$window',
     function ($scope, moment, agendaService, userService, $uibModal, $log, loggedUser, $window) {
 
-        $scope.pickHour = agendaService.getStartHour();
-        $scope.pickMinute = agendaService.getStartMinute();
+        $scope.pickHour = agendaService.getDate().format("HH");
+        $scope.pickMinute = agendaService.getDate().format("mm");
         $scope.attendees = [];
-        $scope.name = "";
-        $scope.description = "";
+        $scope.name = agendaService.getName();
+        $scope.description = agendaService.getDescription();
         $scope.date = agendaService.getDate();
         $scope.loggedUser = loggedUser;
         $scope.minDate = Date.now();
         $scope.showSpinner = true;
+        $scope.isEdit = agendaService.getEdit().isEdit;
 
         // Fetch all users for the instant search.
         userService.getUsers().success(function (response) {
@@ -29,7 +30,8 @@ analytics.controller('agendaController', ['$scope', 'moment', 'agendaService', '
 
         $scope.setFinalValues = function (isValid) {
             if (isValid) {
-                agendaService.setFinalValues($scope.name, $scope.description);
+                agendaService.setName($scope.name);
+                agendaService.setDescription($scope.description);
                 $window.location.href = "#/agenda/google";
             }
         };

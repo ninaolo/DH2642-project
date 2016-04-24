@@ -4,30 +4,31 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
         $scope.authOkay = false;
         $scope.event = {};
         $scope.eventCreated = false;
+        $scope.isEdit = agendaService.getEdit().isEdit;
 
-        $scope.checkAuth = function() {
+        $scope.checkAuth = function () {
             googleService.authorize(true, $scope.handleAuthResult);
         };
 
-        $scope.handleAuthResult = function(authResult) {
+        $scope.handleAuthResult = function (authResult) {
             if (authResult && !authResult.error) {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $scope.authOkay = true;
                 });
                 $scope.createCalendarEvent();
             } else {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $scope.authOkay = false;
                 });
             }
         };
 
-        $scope.handleAuthClick = function() {
+        $scope.handleAuthClick = function () {
             googleService.authorize(false, $scope.handleAuthResult);
             return false;
         };
 
-        $scope.createCalendarEvent = function() {
+        $scope.createCalendarEvent = function () {
             var event = {
                 'summary': agendaService.getName(),
                 'description': agendaService.getDescription(),
@@ -39,21 +40,32 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
                 },
                 'attendees': agendaService.getAttendeeEmails()
             };
-            googleService.createCalendarEvent(event, $scope.handleCalendarEvent);
+
+            if (agendaService.getEdit().isEdit) {
+                googleService.updateCalendarEvent(agendaService.getGoogleId(), event, $scope.handleCalendarEvent);
+            } else {
+                googleService.createCalendarEvent(event, $scope.handleCalendarEvent);
+            }
         };
 
-        $scope.handleCalendarEvent = function(createdEvent) {
+        $scope.handleCalendarEvent = function (createdEvent) {
             if (createdEvent !== undefined) {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $scope.eventCreated = true;
                     $scope.event = createdEvent;
                 });
-                agendaService.newAgenda(createdEvent.htmlLink).success(function() {
-                    agendaService.resetState();
-                });
+                if (agendaService.getEdit().isEdit) {
 
+                    agendaService.updateAgenda(createdEvent.htmlLink, createdEvent.id).success(function (response) {
+                        agendaService.resetState();
+                    });
+                } else {
+                    agendaService.newAgenda(createdEvent.htmlLink, createdEvent.id).success(function () {
+                        agendaService.resetState();
+                    });
+                }
             } else {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $scope.eventCreated = false;
                     $scope.event = createdEvent;
                 });
