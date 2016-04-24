@@ -90,9 +90,8 @@
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/angular-spinner/angular-spinner.min.js"></script>
     <script src="bower_components/spin.js/spin.min.js"></script>
-
+    <script src="bower_components/angular-spinner/angular-spinner.min.js"></script>
 
     <!-- Moment.js for dates -->
     <script src="bower_components/moment/moment.js"></script>
