@@ -10,6 +10,7 @@ analytics.factory('agendaService', function ($http, moment) {
     var attendees;
     var name;
     var description;
+    var link;
 
     agendaService.getStartHour = function () {
         return startHour;
@@ -124,16 +125,25 @@ analytics.factory('agendaService', function ($http, moment) {
         });
     };
 
-    // For example, here you can get all agendas for a certain user_id.
-    // This is put into the parameter and sent as params to the backend.
-    agendaService.getAgendas = function (agendaData) {
+    // The many-to-many relational REST call to all agendas for a specific user.
+    agendaService.getAgendas = function (id) {
         return $http({
             headers: {
                 "Content-Type": "application/json"
             },
-            url: apiUrl + "/agendas",
-            method: "GET",
-            params: agendaData
+            url: apiUrl + "/users/" + id + "/agendas",
+            method: "GET"
+        });
+    };
+
+    // The many-to-many relational REST call to all users for a specific agenda.
+    agendaService.getAgendaUsers = function (id) {
+        return $http({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: apiUrl + "/agendas/" + id + "/users",
+            method: "GET"
         });
     };
 
@@ -179,7 +189,7 @@ analytics.factory('agendaService', function ($http, moment) {
         return $http.delete(apiUrl + '/activities/' + id)
     };
 
-    agendaService.newAgenda = function() {
+    agendaService.newAgenda = function(link) {
         var attendeeIds = [];
         for(var i = 0; i < attendees.length; i++) {
             attendeeIds.push(attendees[i].id);
@@ -192,9 +202,12 @@ analytics.factory('agendaService', function ($http, moment) {
             'description': description,
             'name': name,
             'date': date.format("YYYY-MM-DD HH:mm:ss"),
+            'enddate': endTime.format("YYYY-MM-DD HH:mm:ss"),
             'attendees': attendeeIds,
-            'activities': activityIds
+            'activities': activityIds,
+            'link': link
         };
+        console.log(agendaData);
         return $http({
             headers: {
                 "Content-Type": "application/json"

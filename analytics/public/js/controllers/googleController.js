@@ -48,7 +48,7 @@ analytics.controller('googleController', ['$scope', 'moment', 'agendaService', '
                     $scope.eventCreated = true;
                     $scope.event = createdEvent;
                 });
-                agendaService.newAgenda().success(function() {
+                agendaService.newAgenda(createdEvent.htmlLink).success(function() {
                     agendaService.resetState();
                 });
 

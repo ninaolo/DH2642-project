@@ -14,7 +14,9 @@
 
         <div class="col-md-4 info-text">
             <h4>About me</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> </br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. </p> </br>
             <h4>Contact</h4>
             <p>
                 {{profileUser.name}}</br>
@@ -31,30 +33,24 @@
 
     <div class="row meetings">
         <div class="col-md-6 col-md-offset-3">
-            <uib-datepicker ng-model="dt" class="well well-sm" starting-day="1" datepicker-options="options" ng-click="clicked(dt)"></uib-datepicker>
+            <uib-datepicker ng-if="agendasAreLoaded" ng-model="dt" class="well well-sm" starting-day="1"
+                            custom-class="getDayClass(date, mode)"
+                            ng-click="clicked(dt)"></uib-datepicker>
         </div>
         <div class="col-md-2 agenda-list">
-           <h5>{{dt | date:'fullDate' }}</h5>
+            <h5>{{dt | date:'fullDate' }}</h5>
             <hr>
-            <!--
-            <div ng-repeat="agenda in agendas">
-                <p>Time: {{agenda[0].date.substring('11', '16')}}</p>
-                <p>Description: {{agenda[0].description}}</p>
-            </div>
+            <div ng-repeat="agenda in foundAgendas">
+                <div class="time">
+                    {{agenda.date | amDateFormat:'HH:mm'}} -
+                    {{agenda.enddate | amDateFormat:'HH:mm'}}<br>
+                </div>
+                <a href="#/agenda/{{agenda.id}}">
+                    {{agenda.name}}
+                </a>
+                <p>{{agenda.description}}</p>
 
-            *Det vi kommer använda*
-            <ul style="list-style-type:circle">
-            <div ng-repeat="agenda in agendas" ng-click="showAgenda(myAgenda)">
-                    <li>{{agenda.description}}, {{agenda.date.substring('11', '16')}}</li>
             </div>
-            </ul>
-
-            -->
-            <ul style="list-style-type:circle">
-            <div ng-repeat="myAgenda in foundAgendas" ng-click="showAgenda(myAgenda)">
-                    <li>{{myAgenda.name}}, {{myAgenda.starttime}}</li>
-            </div>
-            </ul>
         </div>
     </div>
 

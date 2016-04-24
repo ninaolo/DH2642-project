@@ -10,13 +10,8 @@
     background-color: #F8F8F8;
 }
 
-.full button span {
-    background-color: limegreen;
-    border-radius: 32px;
-    color: black;
-}
-.partially button span {
-    background-color: orange;
+.has-agendas button span {
+    background-color: #DF9F39;
     border-radius: 32px;
     color: black;
 }
@@ -29,4 +24,10 @@
 .ul .li {
     font-size: 200%;
     padding: 5px;
+}
+
+.time {
+    font-style: italic;
+    font-weight: bold;
+    color: #DF9F39;
 }

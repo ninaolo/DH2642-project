@@ -20,7 +20,10 @@ analytics.config(['$routeProvider',
             templateUrl: 'partials/about.html'
         }).when('/profile/:id', {
             templateUrl: 'partials/profile.html',
-            controller: 'profileController'
+            controller: 'profileController',
+            resolve: {
+                loggedUser: getLoggedUser
+            }
         }).when('/colleagues', {
             templateUrl: 'partials/colleagues.html',
             controller: 'colleaguesController'
