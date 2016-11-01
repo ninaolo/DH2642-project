@@ -1,8 +1,8 @@
-# DH2642-project
+# Office Social Network
 
-This is a project by Nina Olofsson and Li Wirström 
+This is a project by Nina Olofsson and Li Wirström.
 
-The old project idea can be found in the file IDEA.md. However, Google Analytics Real-time API is in beta and needs registration. Additionally, we might have needed to look into sockets etc. in order to get it to work. We therefore changed our project idea to the meeting agenda builder.
+The old project idea can be found in the file IDEA.md. However, Google Analytics Real-time API is in beta and needs registration. We therefore changed our project idea to a meeting agenda builder, which we put into a kind of social network for an office.
 
 ## Frontend
 The frondend part of this project can be found in the `analytics/public` folder. It's written with the AngularJS framework, HTML5 and CSS3.
